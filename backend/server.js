@@ -6,10 +6,13 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 
+// import userRoutes from "./routes/user.routes";
+import postRoutes from "./routes/post.routes.js";
+
 const app = express();
 const port = 8080;
 
-app.use(cors);
+app.use(cors());
 app.use(express.json());
 
 // Fetching URL for connecting with the DB
@@ -28,5 +31,12 @@ const start = async () => {
         console.log(`Listening on ${port}`);
     })
 }
-
 start();
+
+// Root
+app.get('/', (req, res) => {
+    res.redirect('/posts');
+})
+
+// Routing to Post Route
+app.use('/posts', postRoutes);
