@@ -37,4 +37,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// Propagate Delete request of use to Profile, Comments and Posts
+
 export const User = mongoose.model('User', userSchema);

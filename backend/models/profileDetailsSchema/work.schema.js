@@ -14,5 +14,3 @@ export const workSchema = new mongoose.Schema({
         default: ''
     }
 });
-
-export const Work = mongoose.model('Work', workSchema);

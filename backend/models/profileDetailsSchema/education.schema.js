@@ -14,5 +14,3 @@ export const educationSchema = new mongoose.Schema({
         default: ''
     }
 });
-
-export const Education = new mongoose.model('Education', educationSchema);

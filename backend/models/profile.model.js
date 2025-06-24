@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-import { workSchema } from "./work.model";
-import { educationSchema } from "./education.model";
+import { workSchema } from "./profileDetailsSchema/work.schema.js";
+import { educationSchema } from "./profileDetailsSchema/education.schema.js";
 
 const profileSchema = new mongoose.Schema({
     userId: {
@@ -17,7 +17,7 @@ const profileSchema = new mongoose.Schema({
         default: ''
     },
     experience: {
-        type: workSchema,
+        type: [workSchema],
         default: []
     },
     education: {
@@ -26,4 +26,4 @@ const profileSchema = new mongoose.Schema({
     }
 });
 
-export const Profile = mongoose.Schema('Profile', profileSchema);
+export const Profile = mongoose.model('Profile', profileSchema);
