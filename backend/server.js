@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.routes.js";
 import postRoutes from "./routes/post.routes.js";
 import profileRoute from "./routes/profile.routes.js";
+import searchRoutes from "./routes/search.routes.js";
 
 const app = express();
 const port = 8080;
@@ -47,3 +48,6 @@ app.use('/user', userRoutes);
 
 // Routing to User Profile Route
 app.use('/profile', profileRoute);
+
+// Routing to Search Route
+app.use('/search', searchRoutes);

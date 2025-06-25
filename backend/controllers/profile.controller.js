@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { Profile } from '../models/profile.model.js';
 
+// Fetch User Profile
 export const getUserProfile = async (req, res) => {
     const { token } = req.body;
 
@@ -12,6 +13,7 @@ export const getUserProfile = async (req, res) => {
     return res.status(200).json({ userProfile });
 }
 
+// Update User Profile
 export const updateUserProfile = async (req, res) => {
     const { token, ...newProfileData } = req.body;
 

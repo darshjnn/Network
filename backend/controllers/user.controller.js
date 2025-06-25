@@ -20,7 +20,11 @@ export const signup = async (req, res) => {
     });
 
     if (user) {
-        return res.status(400).json({ message: "User already exists..." });
+        if (user.username === username) {
+            return res.status(400).json({ message: "Username already taken..." });
+        } else {
+            return res.status(400).json({ message: "Email already exists..." });
+        }
     }
 
     let hashPassword = await bcrypt.hash(password, 10);
