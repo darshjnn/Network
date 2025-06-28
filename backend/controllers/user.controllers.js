@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 import { User } from '../models/user.model.js';
 import { Profile } from '../models/profile.model.js';
@@ -89,7 +89,7 @@ export const uploadProfilePic = async (req, res) => {
     }
 
     if (!req.file) {
-        return res.status(400).json({ message: "Upload a Picture..." });
+        return res.status(400).json({ message: "Invalid file type. Only JPEG, JPG, and PNG are allowed..." });
     }
 
     user.profilePicture = req.file.fileName;

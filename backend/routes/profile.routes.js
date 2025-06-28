@@ -4,7 +4,7 @@ import { wrapAsync } from "../utils/wrapAsync.js";
 
 import { isLoggedIn } from "../middlewares/authentication/isLoggedIn.js";
 
-import * as profileController from "../controllers/profile.controller.js";
+import * as profileController from "../controllers/profile.controllers.js";
 
 const router = Router();
 
@@ -16,5 +16,9 @@ router.route('/user_profile')
     .post(
         isLoggedIn, wrapAsync(profileController.updateUserProfile)
 );
+
+// Download User Profile
+router.route('/get_resume')
+    .get(wrapAsync(profileController.downloadProfile));
 
 export default router;

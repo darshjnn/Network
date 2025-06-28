@@ -1,4 +1,4 @@
-import mongoose, { connection } from "mongoose";
+import mongoose from "mongoose";
 
 const connectReqSchema = new mongoose.Schema({
     // Sent By

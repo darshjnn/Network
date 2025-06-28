@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { wrapAsync } from "../utils/wrapAsync.js";
 
-import * as searchController from "../controllers/search.controllers.js";
+import * as searchController from "../controllers/search.controller.js";
 
 const router = Router();
 
