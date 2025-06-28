@@ -10,6 +10,7 @@ import userRoutes from "./routes/user.routes.js";
 import postRoutes from "./routes/post.routes.js";
 import profileRoute from "./routes/profile.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import connectionRoutes from "./routes/connection.routes.js";
 
 const app = express();
 const port = 8080;
@@ -52,3 +53,6 @@ app.use('/profile', profileRoute);
 
 // Routing to Search Route
 app.use('/search', searchRoutes);
+
+// Routing to Connection Route
+app.use('/connections', connectionRoutes);

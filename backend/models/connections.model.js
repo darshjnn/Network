@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connectReqSchema = new mongoose.Schema({
+const connectionSchema = new mongoose.Schema({
     // Sent By
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -12,10 +12,10 @@ const connectReqSchema = new mongoose.Schema({
         ref: 'User'
     },
     // Status: null => action await, Status: true => req accepted, Status: false: req rejected
-    status_accepted: {
+    status: {
         type: Boolean,
         default: null
     }
 });
 
-export const ConnectionRequest = mongoose.model('Connection', connectReqSchema);
+export const Connection = mongoose.model('Connection', connectionSchema);
