@@ -27,10 +27,8 @@ const upload = multer({
 }).single('profile_picture');
 
 const checkFileType = (file, cb) => {
-    const filetypes = /jpeg|jpg|png/;
-
     // Check Extension
-    const isValidExtension = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const isValidExtension = /\.(jpeg|jpg|png)$/.test(path.extname(file.originalname).toLowerCase());
 
     if (isValidExtension) {
         return cb(null, true);
