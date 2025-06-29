@@ -12,6 +12,10 @@ const router = Router();
 router.route('/send_request')
     .post(isLoggedIn, wrapAsync(connectionController.sendConnectionReq));
 
+// Fetch Connection requests sent by others
+router.route('/get_requests')
+    .get(isLoggedIn, wrapAsync(connectionController.getConnectionReq));
+
 // Respond to Connection request(Accept, Reject) and Manage Connections (Delete connections)
 router.route('/manage_connections')
     .post(isLoggedIn, wrapAsync(connectionController.manageConnections));
