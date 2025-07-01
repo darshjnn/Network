@@ -54,7 +54,7 @@ export const sendConnectionReq = async (req, res) => {
 
     await newRequest.save();
 
-    return res.status(200).json({ message: "Request Sent..." });
+    return res.status(201).json({ message: "Request Sent..." });
 }
 
 // Fetch Connection requests sent by others
@@ -84,13 +84,13 @@ export const manageConnections = async (req, res) => {
     if (connectionUser.status === null && action === "accept") {
         connectionUser.status = true;
         await connectionUser.save();
-        return res.status(200).json({ message: "Request Accepted..." });
+        return res.status(201).json({ message: "Request Accepted..." });
     } else if (!connectionUser.status && action === "reject") {
         await Connection.deleteOne({ _id: requestId });
-        return res.status(200).json({ message: "Request Rejected..." });
+        return res.status(201).json({ message: "Request Rejected..." });
     } else if (connectionUser.status && action === "delete") {
         await Connection.deleteOne({ _id: requestId });
-        return res.status(200).json({ message: "Connection Removed..." });
+        return res.status(201).json({ message: "Connection Removed..." });
     }
     else {
         return res.status(404).json({ message: "Invalid action type..." });
@@ -104,10 +104,10 @@ export const getConnections = async (req, res) => {
     const user = await User.findOne({ token: token });
 
     const connections = await Connection.find({
-        $and: [{
-            userId: user._id,
-            status: true
-        }]
+        $or: [
+            { userId: user._id, status: true },
+            { connectionId: user._id, status: true }
+        ]
     }).populate('connectionId', 'name username email profilePicture');
 
     if (!connections) {

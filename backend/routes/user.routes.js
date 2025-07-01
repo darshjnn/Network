@@ -1,6 +1,7 @@
 import { Router } from "express";
 import path from "path";
 import multer from "multer";
+import { v6 as uuidv6 } from "uuid";
 
 import { wrapAsync } from "../utils/wrapAsync.js";
 
@@ -12,10 +13,11 @@ const router = Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './uploads/profile_pictures');
+        cb(null, 'uploads/profile_pictures');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        const newFileName = uuidv6() + file.originalname;
+        cb(null, newFileName);
     }
 });
 
@@ -27,10 +29,13 @@ const upload = multer({
 }).single('profile_picture');
 
 const checkFileType = (file, cb) => {
+    // Check mime
+    const mimetype = /^image\/(jpeg|jpg|png)$/.test(file.mimetype);
+
     // Check Extension
     const isValidExtension = /\.(jpeg|jpg|png)$/.test(path.extname(file.originalname).toLowerCase());
 
-    if (isValidExtension) {
+    if (isValidExtension && mimetype) {
         return cb(null, true);
     } else {
         return cb(null, false);

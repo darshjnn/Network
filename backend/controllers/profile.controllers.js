@@ -58,7 +58,7 @@ export const updateUserProfile = async (req, res) => {
     Object.assign(profile, newProfileData);
     await profile.save();
 
-    return res.status(200).json({ message: "User Profile Updated..." });
+    return res.status(201).json({ message: "User Profile Updated..." });
 }
 
 // Download User Profile

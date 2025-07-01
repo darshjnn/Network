@@ -71,7 +71,7 @@ export const login = async (req, res) => {
     const token = crypto.randomBytes(32).toString("hex");
     await User.updateOne({ _id: user._id }, { token });
 
-    return res.status(202).json({ token });
+    return res.status(201).json({ token });
 }
 
 // Upload/Update Profile Picture
@@ -95,7 +95,7 @@ export const uploadProfilePic = async (req, res) => {
     user.profilePicture = req.file.fileName;
     await user.save();
 
-    return res.status(202).json({ message: "Profile Picture Updated..." });
+    return res.status(201).json({ message: "Profile Picture Updated..." });
 }
 
 // Update User Details(name, username, email)
@@ -130,5 +130,5 @@ export const updateUser = async (req, res) => {
     Object.assign(user, newUserData);
     await user.save();
 
-    return res.status(202).json({ message: "User Information Updated..." });
+    return res.status(201).json({ message: "User Information Updated..." });
 }

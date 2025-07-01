@@ -1,5 +1,6 @@
 import { User } from "../../models/user.model.js";
 
+// Checks if the User is Logged in
 export const isLoggedIn = async (req, res, next) => {
     const { token } = req.body;
     
