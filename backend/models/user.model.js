@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    active: {
-        type: Boolean,
-        default: true
-    },
     password: {
         type: String,
         required: true
@@ -34,6 +30,14 @@ const userSchema = new mongoose.Schema({
     token: {
         type: String,
         default: ''
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
+    blocked: {
+        type: Boolean,
+        default: false
     }
 });
 

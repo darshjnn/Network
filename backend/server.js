@@ -11,6 +11,7 @@ import postRoutes from "./routes/post.routes.js";
 import profileRoute from "./routes/profile.routes.js";
 import searchRoutes from "./routes/search.routes.js";
 import connectionRoutes from "./routes/connection.routes.js";
+import commentRoutes from "./routes/comment.routes.js";
 
 const app = express();
 const port = 8080;
@@ -40,10 +41,7 @@ app.use(express.static("/uploads"));
 // Root
 app.get('/', (req, res) => {
     res.redirect('/posts');
-})
-
-// Routing to Post Route
-app.use('/posts', postRoutes);
+});
 
 // Routing to User Route
 app.use('/user', userRoutes);
@@ -56,3 +54,9 @@ app.use('/search', searchRoutes);
 
 // Routing to Connection Route
 app.use('/connections', connectionRoutes);
+
+// Routing to Post Route
+app.use('/posts', postRoutes);
+
+// Routing to Comment Route
+app.use('/post/comment', commentRoutes);

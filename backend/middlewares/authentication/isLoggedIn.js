@@ -8,7 +8,7 @@ export const isLoggedIn = async (req, res, next) => {
         return res.status(400).json({ message: "Incorrect Credentials" });
     }
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token, active: true, blocked: false });
 
     if (!user) {
         return res.status(404).json({ message: "Fuck Off! No such User Exists..." });

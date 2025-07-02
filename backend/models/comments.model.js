@@ -18,7 +18,13 @@ const commentSchema = new mongoose.Schema(
         },
         likes: {
             type: Number,
-            default: 0
+            default: 0,
+            min: 0
+        },
+        likedBy: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'User',
+            default: []
         },
         createdAt: {
             type: Date,
@@ -32,6 +38,14 @@ const commentSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Comment',
             default: null
+        },
+        active: {
+            type: Boolean,
+            default: true
+        },
+        blocked: {
+            type: Boolean,
+            default: false
         }
     },
     {
@@ -44,6 +58,13 @@ commentSchema.virtual('replies', {
     ref: 'Comment',
     localField: '_id',
     foreignField: 'parentComment'
+});
+
+// Propagating Delete to request of Comment to its Replies
+commentSchema.post('findOneAndDelete', async (comment) => {
+    if (comment) {
+        await Comment.deleteMany({ parentComment: comment._id });
+    }
 });
 
 export const Comment = mongoose.model('Comment', commentSchema);

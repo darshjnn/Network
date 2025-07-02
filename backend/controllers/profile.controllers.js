@@ -4,7 +4,7 @@ import fs from "fs";
 import { User } from "../models/user.model.js";
 import { Profile } from '../models/profile.model.js';
 
-// Create PFD fro User profile
+// Create PDF for User profile
 const userDataToPdf = async (profile) => {
     const doc = new PDFDocument();
 
@@ -40,7 +40,7 @@ const userDataToPdf = async (profile) => {
 export const getUserProfile = async (req, res) => {
     const { token } = req.body;
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token, active: true, blocked: false });
 
     const userProfile = await Profile.findOne({ userId: user._id })
         .populate('userId', 'username name email profilePicture');
@@ -52,7 +52,7 @@ export const getUserProfile = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
     const { token, ...newProfileData } = req.body;
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token, active: true, blocked: false });
     const profile = await Profile.findOne({ userId: user._id });
 
     Object.assign(profile, newProfileData);

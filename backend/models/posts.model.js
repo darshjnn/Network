@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import fs from "fs";
 
+import { Comment } from "./comments.model.js";
+
 const postSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -9,10 +11,6 @@ const postSchema = new mongoose.Schema({
     body: {
         type: String,
         required: true
-    },
-    likes: {
-        type: Number,
-        default: 0
     },
     createdAt: {
         type: Date,
@@ -26,6 +24,20 @@ const postSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    fileType: {
+        type: String,
+        default: ''
+    },
+    likes: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    likedBy: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
+        default: []
+    },
     active: {
         type: Boolean,
         default: true
@@ -34,16 +46,17 @@ const postSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    fileType: {
-        type: String,
-        default: ''
+    blocked: {
+        type: Boolean,
+        default: false
     }
 });
 
-// Deleting Post media if Post is deleted
-postSchema.post('findOneAndDelete', async (doc) => {
-    if (doc && doc.media) {
-        const filePath = 'uploads/posts/' + doc.media;
+// Deleting Post media and associated Comments if Post is deleted
+postSchema.post('findOneAndDelete', async (post) => {
+    // Deleting Post media
+    if (post && post.media) {
+        const filePath = 'uploads/posts/' + post.media;
 
         fs.unlink(filePath, (err) => {
             if (err) {
@@ -51,6 +64,11 @@ postSchema.post('findOneAndDelete', async (doc) => {
                 console.log(err);
             }
         });
+    }
+
+    // Deleting Comments
+    if (post) {
+        await Comment.deleteMany(({ postId: post._id }));
     }
 });
 

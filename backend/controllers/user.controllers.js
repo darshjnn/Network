@@ -56,11 +56,19 @@ export const login = async (req, res) => {
         $or: [
             { email: email },
             { username: username }
-        ]
+        ],
     });
 
     if (!user) {
         return res.status(404).json({ message: "Fuck Off! No such User exists..." });
+    }
+
+    if (user.blocked) {
+        return res.status(200).json({ message: "Access Denied!!!" });
+    }
+
+    if (!user.active) {
+        return res.status(200).json({ message: "First reactivate Account..." });
     }
 
     let isMatch = await bcrypt.compare(password, user.password);
@@ -82,7 +90,7 @@ export const uploadProfilePic = async (req, res) => {
         return res.status(400).json({ message: "Incorrect Credentials" });
     }
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token, active: true, blocked: false });
 
     if (!user) {
         return res.status(404).json({ message: "Fuck Off! No such User Exists..." });
@@ -102,7 +110,7 @@ export const uploadProfilePic = async (req, res) => {
 export const updateUser = async (req, res) => {
     const { token, ...newUserData } = req.body;
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token, active: true, blocked: false });
 
     const { username, email } = newUserData;
 

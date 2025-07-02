@@ -5,8 +5,9 @@ import { Connection } from "../models/connections.model.js";
 export const sendConnectionReq = async (req, res) => {
     const { token, connectionId } = req.body;
 
-    const currentUser = await User.findOne({ token: token });
-    const connectionUser = await User.findOne({ _id: connectionId });
+    const currentUser = await User.findOne({ token: token, active: true, blocked: false });
+    const connectionUser = await User.findOne(
+        { _id: connectionId, active: true, blocked: false });
 
     if (String(currentUser._id) === connectionId) {
         return res.status(400).json({ message: "Looped request is invalid..." })
@@ -22,8 +23,8 @@ export const sendConnectionReq = async (req, res) => {
             // Current user already sent the request
             { userId: currentUser._id, connectionId: connectionUser._id, },
             // Already connected in either direction
-            { userId: currentUser._id, status: true },
-            { connectionId: currentUser._id, status: true }
+            { userId: currentUser._id, connectionId: connectionUser._id, status: true },
+            { userId: connectionUser._id, connectionId: currentUser._id, status: true }
         ]
     });
 
@@ -61,7 +62,7 @@ export const sendConnectionReq = async (req, res) => {
 export const getConnectionReq = async (req, res) => {
     const { token } = req.body;
 
-    const currentUser = await User.findOne({ token: token });
+    const currentUser = await User.findOne({ token: token, active: true, blocked: false });
     const requests = await Connection.find({ connectionId: currentUser._id });
 
     if (!requests) {
@@ -101,7 +102,7 @@ export const manageConnections = async (req, res) => {
 export const getConnections = async (req, res) => {
     const { token } = req.body;
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token, active: true, blocked: false });
 
     const connections = await Connection.find({
         $or: [

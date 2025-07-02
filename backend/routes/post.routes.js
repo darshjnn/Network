@@ -7,6 +7,7 @@ import { wrapAsync } from "../utils/wrapAsync.js";
 import { isLoggedIn } from "../middlewares/authentication/isLoggedIn.js";
 
 import * as postController from "../controllers/post.controllers.js";
+import { toggleLikePost } from "../controllers/like.controller.js";
 
 const router = Router();
 
@@ -36,12 +37,12 @@ router.route('/posts')
 router.route('/delete_post')
     .post(isLoggedIn, wrapAsync(postController.deletePost));
 
-// Archive Post
-router.route('/archive_post')
-    .post(isLoggedIn, wrapAsync(postController.archivePost));
+// Archive/Unarchive Post
+router.route('/toggle_archive_post')
+    .post(isLoggedIn, wrapAsync(postController.toggleArchivePost));
 
-// Unarchive Post
-router.route('/unarchive_post')
-    .post(isLoggedIn, wrapAsync(postController.unarchivePost));
+// Toggle Like for Post
+router.route('/toggle_post_like')
+    .post(isLoggedIn, wrapAsync(toggleLikePost));
 
 export default router;
