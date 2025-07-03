@@ -21,17 +21,13 @@ router.route('/edit_comment')
 router.route('/delete_comment')
     .post(isLoggedIn, wrapAsync(commentController.deleteComment));
 
-// Get Comments
+// Get Comments along with their replies
 router.route('/comments')
     .get(wrapAsync(commentController.getComments));
 
 // Reply to a Comment
 router.route('/reply_comment')
     .post(isLoggedIn, wrapAsync(commentController.postReply));
-
-// Get Comment Replies
-router.route('/comment_replies')
-    .get(wrapAsync(commentController.getReplies));
 
 // Toggle Like for Comments
 router.route('/toggle_comment_like')

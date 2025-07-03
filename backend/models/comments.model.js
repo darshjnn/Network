@@ -60,7 +60,7 @@ commentSchema.virtual('replies', {
     foreignField: 'parentComment'
 });
 
-// Propagating Delete to request of Comment to its Replies
+// Propagating Delete request of Comment to its Replies
 commentSchema.post('findOneAndDelete', async (comment) => {
     if (comment) {
         await Comment.deleteMany({ parentComment: comment._id });

@@ -1,0 +1,365 @@
+[
+  {
+    "v": 8,
+    "name": "Network (User/Profile/Post)",
+    "folders": [],
+    "requests": [
+      {
+        "v": "14",
+        "name": "sig up",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/user/signup",
+        "params": [
+          {
+            "key": "name",
+            "value": "lambda",
+            "active": true,
+            "description": ""
+          },
+          {
+            "key": "email",
+            "value": "lambda@gmail.com",
+            "active": true,
+            "description": ""
+          },
+          {
+            "key": "password",
+            "value": "lambda",
+            "active": true,
+            "description": ""
+          },
+          {
+            "key": "username",
+            "value": "lambda12",
+            "active": true,
+            "description": ""
+          }
+        ],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"name\": \"Boom Boom 3\", \n  \"email\": \"lambda3@gmail.com\", \n  \"password\": \"password\", \n  \"username\": \"unique3\"\n}\n"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "log in",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/user/login",
+        "params": [
+          {
+            "key": "\"username\"",
+            "value": "\"unique\"",
+            "active": true,
+            "description": ""
+          },
+          {
+            "key": "\"password\"",
+            "value": "\"lambda\"",
+            "active": true,
+            "description": ""
+          }
+        ],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"email\": \"lambda@gmail.com\",\n  \"password\": \"password\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "update user",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/user/update_user",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"7ba437c97fe689c7691cd74f9133abd0cb701efebed818a60aa213740a1cad2a\",\n  \"username\": \"unique1\",\n  \"email\": \"lambda1@gmail.com\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "update profile picture",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/user/update_profile_picture",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "multipart/form-data",
+          "body": [
+            {
+              "key": "token",
+              "active": true,
+              "isFile": false,
+              "value": "7ba437c97fe689c7691cd74f9133abd0cb701efebed818a60aa213740a1cad2a"
+            },
+            {
+              "key": "profile_picture",
+              "active": true,
+              "isFile": false,
+              "value": ""
+            }
+          ]
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "get user profile",
+        "method": "GET",
+        "endpoint": "http://localhost:8080/profile/user_profile",
+        "params": [
+          {
+            "key": "token",
+            "value": "",
+            "active": true,
+            "description": ""
+          }
+        ],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"7ba437c97fe689c7691cd74f9133abd0cb701efebed818a60aa213740a1cad2a\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "user profile update",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/profile/user_profile",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"7ba437c97fe689c7691cd74f9133abd0cb701efebed818a60aa213740a1cad2a\",\n  \"bio\": \"Fucking Test User...\",\n  \"currentPost\": \"Tester\",\n  \"experience\": [{\n    \"company\": \"LOL Tamatar\",\n    \"position\": \"Missionary\",\n    \"duration\": \"1 year\"\n  }],\n  \"education\": [{\n    \"school\": \"LOL cllg\",\n    \"degree\": \"sasti\",\n    \"field\": \"dhum tana\"\n  }]\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "search users with name",
+        "method": "GET",
+        "endpoint": "http://localhost:8080/search/users",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"name\": \"bo\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "get connection requests",
+        "method": "GET",
+        "endpoint": "https://echo.hoppscotch.io",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"abe77b8a866a8f167fa0990ad100ce52857958d237083fa1ba53a5d56eb6b00a\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "send request",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/connections/send_request",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"f1c81f65fed42dfff2dd26e4f7215af37c8b072b053b063f27271deb97222992\",\n  \"connectionId\": \"6862a3c9852be8d3b3e43b16\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "manage connections",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/connections/manage_connections",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"7ba437c97fe689c7691cd74f9133abd0cb701efebed818a60aa213740a1cad2a\",\n  \"requestId\": \"68613fe90372d0a37406189e\",\n  \"action\": \"accept\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "get connections",
+        "method": "GET",
+        "endpoint": "http://localhost:8080/connections/my_connections",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"f1c81f65fed42dfff2dd26e4f7215af37c8b072b053b063f27271deb97222992\" \n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "delete post",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/posts/delete_post",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"7ba437c97fe689c7691cd74f9133abd0cb701efebed818a60aa213740a1cad2a\",\n  \"postId\": \"6862a308852be8d3b3e43b05\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "archive/unarchive post",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/posts/toggle_archive_post",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"44e5c4fb1a899aeb532d213323a1dce15799f6d41956e5f807037461b8eef251\",\n  \"postId\": \"6863e2faacde609970a04561\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "14",
+        "name": "post toggle like ",
+        "method": "POST",
+        "endpoint": "http://localhost:8080/posts/toggle_post_like",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"token\": \"f6a38e9798049af8f69699ccb4db1c0cccf1a6726b8a082228287a65fe3d4065\",\n  \"postId\": \"6863cbbc8bed971b108abb66\" \n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      }
+    ],
+    "auth": {
+      "authActive": true,
+      "authType": "none"
+    },
+    "headers": [],
+    "_ref_id": "coll_mcajpu57_f6d5456b-857a-4720-b070-25f094c1f966"
+  },
+  {
+    "v": 8,
+    "name": "Network (Comment)",
+    "folders": [],
+    "requests": [],
+    "auth": {
+      "authActive": true,
+      "authType": "none"
+    },
+    "headers": [],
+    "_ref_id": "coll_mckliote_6a1eee77-4f72-419e-b99f-bae3487a7d62"
+  }
+]

@@ -4,13 +4,13 @@ import { Comment } from "../models/comments.model.js";
 
 // Comment on Post
 export const postComment = async (req, res) => {
-    const { token, postId, commentBody } = req.body;
+    const { token, postId, body } = req.body;
 
     if (!postId) {
         return res.status(400).json({ message: "Send Valid Post!!!" });
     }
 
-    if (!commentBody) {
+    if (!body) {
         return res.status(400).json({ message: "Body for comment is must..." });
     }
 
@@ -25,7 +25,7 @@ export const postComment = async (req, res) => {
     const comment = new Comment({
         userId: user._id,
         postId: post._id,
-        body: commentBody
+        body: body
     });
 
     await comment.save();
@@ -35,7 +35,43 @@ export const postComment = async (req, res) => {
 
 // Edit Comment
 export const editComment = async (req, res) => {
+    const { token, postId, commentId, ...newComment } = req.body;
 
+    if (!postId) {
+        return res.status(400).json({ message: "Send Valid Post!!!" });
+    }
+
+    if (!commentId) {
+        return res.status(400).json({ message: "Send Valid Comment!!!" });
+    }
+
+    if (!newComment || !newComment.body) {
+        return res.status(400).json({ message: "Body for comment is must..." });
+    }
+
+    const post = await Post.findOne({ _id: postId, blocked: false });
+
+    if (!post) {
+        return res.status(404).json({ message: "No such Post found!!!" });
+    }
+
+    const comment = await Comment.findOne({ _id: commentId, blocked: false });
+
+    if (!comment) {
+        return res.status(404).json({ message: "No comment found!!!" });
+    }
+
+    const user = await User.findOne({ token: token });
+
+    if (String(user._id) !== String(comment.userId) || String(comment.postId) !== postId) {
+        return res.status(400).json({ message: "Not authorized to edit this Comment!!!" });
+    }
+
+    newComment.updatedAt = new Date();
+    Object.assign(comment, newComment);
+    await comment.save();
+
+    return res.status(201).json({ message: "Comment updated successfully..." });
 }
 
 // Delete Comment
@@ -50,7 +86,7 @@ export const deleteComment = async (req, res) => {
         return res.status(400).json({ message: "Send Valid Comment!!!" });
     }
 
-    const comment = await Comment.findOne({ _id: commentId });
+    const comment = await Comment.findOne({ _id: commentId, blocked: false });
 
     if (!comment) {
         return res.status(404).json({ message: "No comment found!!!" });
@@ -73,9 +109,49 @@ export const deleteComment = async (req, res) => {
     return res.status(200).json({ message: "Comment and Replies deleted successfully..." });
 }
 
-// Get Comments
+// Get Comments along with their replies
 export const getComments = async (req, res) => {
-    // See form Copilot
+    const { postId } = req.body;
+
+    if (!postId) {
+        return res.status(400).json({ message: "Send Valid Post!!!" });
+    }
+
+    const post = await Post.findOne(
+        { _id: postId, active: true, archived: false, blocked: false });
+
+    if (!post) {
+        return res.status(404).json({ message: "No such Post found!!!" });
+    }
+
+    const comments = await Comment.find({ postId: postId, active: true, blocked: false })
+        .populate('userId', 'username name profilePicture')
+        .sort({ createdAt: -1 }) // Sort newest comment first
+        .lean(); // use lean to return plain JS objects
+
+    // Reconstruct comment tree to optimize for deeply nested replies
+    const roots = [];
+    const commentMap = {};
+
+    // Initialize Map
+    comments.forEach(comment => {
+        comment.replies = [];
+        commentMap[comment._id.toString()] = comment;
+    });
+
+    // Link Parent Comment to its Replies
+    comments.forEach(comment => {
+        if (comment.parentComment) {
+            const parent = commentMap[comment.parentComment.toString()];
+            if (parent) {
+                parent.replies.push(comment);
+            }
+        } else {
+            roots.push(comment);
+        }
+    });
+
+    return res.status(200).json(roots);
 }
 
 // Reply to a Comment
@@ -88,6 +164,10 @@ export const postReply = async (req, res) => {
 
     if (!replyBody) {
         return res.status(400).json({ message: "Body for reply is must..." });
+    }
+
+    if (!parentComment) {
+        return res.status(400).json({ message: "Send Valid Parent Comment!!!" });
     }
 
     const post = await Post.findOne(
@@ -116,9 +196,4 @@ export const postReply = async (req, res) => {
     await reply.save();
 
     return res.status(201).json({ message: "Reply added successfully..." });
-}
-
-// Get Comment Replies
-export const getReplies = async (req, res) => {
-    // See form Copilot
 }

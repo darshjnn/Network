@@ -29,8 +29,12 @@ const upload = multer({
 router.route('/create_post')
     .post(upload, wrapAsync(postController.createPost));
 
-// Get all Posts (only the post which are not archived and active are to be fetched)
-router.route('/posts')
+// Edit Post
+router.route('/edit_post')
+    .post(upload, wrapAsync(postController.editPost));
+
+// Get all Posts (only the post which are not archived and not active are to be fetched)
+router.route('/')
     .get(wrapAsync(postController.getAllPosts));
 
 // Delete Post
