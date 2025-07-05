@@ -25,7 +25,7 @@ const ATLAS_URL = process.env.ATLAS_URL;
 
 // Starting the App and connect to Local/Cloud DB
 const start = async () => {
-    const connectDB = await mongoose.connect(MONGO_URL);
+    await mongoose.connect(MONGO_URL);
     console.log('Connected to Network Application Database');
 
     app.listen(port, () => {
