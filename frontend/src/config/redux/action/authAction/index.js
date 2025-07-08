@@ -6,6 +6,7 @@ export const loginUser = createAsyncThunk(
     async (user, thunkApi) => {
         try {
             const response = await clientServer.post("/user/login", {
+                username: user.username,
                 email: user.email,
                 password: user.password
             });
@@ -29,6 +30,16 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     "user/signup",
     async (user, thunkApi) => {
-        
+        try {
+            const response = await clientServer.post("/user/signup", {
+                username: user.username,
+                password: user.password,
+                email: user.email,
+                name: user.name
+            });
+
+        } catch (err) {
+            return thunkApi.rejectWithValue(err.response.data);
+        }
     }
-)
+);

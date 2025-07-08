@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import validator from "validator";
 
 import { User } from '../models/user.model.js';
 import { Profile } from '../models/profile.model.js';
@@ -8,8 +9,12 @@ import { Profile } from '../models/profile.model.js';
 export const signup = async (req, res) => {
     const { name, email, password, username } = req.body;
 
-    if (!name || !email || !password || !username) {
+    if (!name || !password || !password || !username) {
         return res.status(400).json({ message: "All fields are must..." });
+    }
+
+    if (!validator.isEmail(email)) {
+        return res.status(400).json({ message: "Enter a valid Email..." });
     }
 
     const user = await User.findOne({
@@ -47,6 +52,10 @@ export const signup = async (req, res) => {
 // Login
 export const login = async (req, res) => {
     const { email, password, username } = req.body;
+
+    if (email && !validator.isEmail(email)) {
+        return res.status(400).json({ message: "Enter a valid Email..." });
+    }
 
     if ((!email && !username) || !password) {
         return res.status(400).json({ message: "All fields are must..." });

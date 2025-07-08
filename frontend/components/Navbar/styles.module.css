@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+
+.container {
+    background-color: rgba(0, 0, 0, 0.565);
+    padding: 0.8rem 2.5rem 0.3rem 2.5rem;
+    position: fixed;
+    width: 100%;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.routeHome {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    align-items: center;
+    cursor: pointer;
+    ;
+}
+
+.routeHome>p {
+    font-family: "Delius", cursive;
+    color: #F7F6F7;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.buttonActions {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.buttonActions>button {
+    font-size: 1rem;
+}

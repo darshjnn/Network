@@ -1,0 +1,56 @@
+.body {
+    min-height: 100vh;
+    display: flex;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    padding: 0 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    background: -webkit-linear-gradient(-45deg, #FFA3A550, #F686BD30, #BDE0FE80);
+    border-radius: 1.8rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.containerLeft>p, .containerLeft>label {
+    align-self: center;
+}
+
+.containerLeft>input {
+    font-size: 1rem;
+    margin: 0.5rem 2rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    user-select: none;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.containerLeft>input::placeholder {
+    font-size: 0.8rem;
+}
+
+.containerLeft>input:focus {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+.containerRightImg {
+    height: 30rem;
+}
