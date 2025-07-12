@@ -50,6 +50,10 @@ router.route('/signup')
 router.route('/login')
     .post(wrapAsync(userController.login));
 
+// Get Current User
+router.route('/current_user')
+    .post(isLoggedIn, wrapAsync(userController.getCurrentUser));
+
 // Upload/Update Profile Picture
 router.route('/update_profile_picture')
     .post(upload, wrapAsync(userController.uploadProfilePic));

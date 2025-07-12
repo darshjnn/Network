@@ -1,33 +1,81 @@
 import React from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { reset } from '@/config/redux/reducer/authReducer';
 
-import Button from '../Button';
+import ActionBtn from '../Buttons/ActionBtn';
+import InteractBtn from '../Buttons/InteractBtn';
 
 import styles from "./styles.module.css";
 
+import { BASE_URL } from '@/config';
+
 export default function Navbar() {
+  const authState = useSelector((state) => state.auth);
+
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  // Log out
+  const logout = () => {
+    localStorage.removeItem("token");
+    router.push("/");
+    dispatch(reset());
+  }
 
   return (
     <div className={styles.container}>
-      <nav className={styles.navbar}>
 
-        <div className={styles.navbarLeft}>
-          <div onClick={() => { router.push("/login") }} className={styles.routeHome}>
-            <img src="svg/logo.svg" alt="logo" />
-            <p>Network</p></div>
-        </div>
-
-        <div className={styles.navbarRight}>
-          <div className={styles.buttonActions}>
-            <Button message={"Sign Up!"} route="/signup" />
-
-            <Button message={"Log In"} route="/login" />
+      {!(authState.userFetched) &&
+        <nav className={styles.noUser}>
+          <div className={styles.navbarLeft}>
+            <div onClick={() => { router.push("/login") }} className={styles.routeHome}>
+              <img src="svg/logo.svg" alt="logo" />
+              <p>Network</p>
+            </div>
           </div>
 
-        </div>
-      </nav>
+          <div className={styles.navbarRight}>
+            <ActionBtn message={"Sign Up!"} route="/signup" />
+
+            <ActionBtn message={"Log In"} route="/login" />
+          </div>
+        </nav>
+      }
+
+      {(authState.userFetched) &&
+        <nav className={styles.validUser}>
+          <div className={styles.navbarLeft}>
+            <div onClick={() => { router.push("/login") }} className={styles.routeHome}>
+              <img src="svg/logo.svg" alt="logo" />
+              <p>Network</p></div>
+          </div>
+
+          <div className={styles.navbarMiddle}>
+            <InteractBtn message={"Home"} route={"/feed"} svg={"home.svg"} />
+
+            <InteractBtn message={"Connections"} route={"/connections"} svg={"connection.svg"} />
+
+            <InteractBtn message={"Discover"} route={"/discover"} svg={"search.svg"} />
+
+            <InteractBtn message={"My Profile"} route={"/dashboard"} svg={"configure.svg"} />
+
+          </div>
+
+          <div className={styles.navbarRight}>
+
+            <div className={styles.userImgDiv} onClick={() => { router.push("/dashboard") }}>
+              <img src={`${BASE_URL}/uploads/profile_pictures/${authState.user.profilePicture}`} alt="profile_pic" className={styles.userImg} />
+            </div>
+
+            <div onClick={logout}>
+              <ActionBtn message={`Log out`} />
+            </div>
+
+          </div>
+        </nav>
+      }
+
     </div>
   )
 }

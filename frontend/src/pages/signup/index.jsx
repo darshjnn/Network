@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import styles from "./style.module.css";
-import buttonStyle from "../../../components/Button/style.module.css";
+import buttonStyle from "../../../components/Buttons/ActionBtn/style.module.css";
 
 import UserLayout from '@/layouts/UserLayout';
-import Navbar from '../../../components/Navbar';
-import Button from '../../../components/Button';
+
+import ActionBtn from '../../../components/Buttons/ActionBtn';
 import TextDanger from "../../../components/TextDanger";
 
 import { loginUser, registerUser } from '@/config/redux/action/authAction';
@@ -17,15 +16,7 @@ import { clearMessage } from '@/config/redux/reducer/authReducer';
 export default function SignUpComponent() {
   const authState = useSelector((state) => state.auth);
 
-  const router = useRouter();
   const dispatch = useDispatch();
-
-  // Redirect to '/dashboard' if user is already logged in
-  useEffect(() => {
-    if (authState.loggedIn) {
-      router.push("/dashboard");
-    }
-  }, [authState.loggedIn]);
 
   // Clear auth message on mount
   useEffect(() => {
@@ -71,7 +62,6 @@ export default function SignUpComponent() {
 
   return (
     <UserLayout>
-      <Navbar />
 
       <div className={styles.body}>
         <div className={styles.container}>
@@ -114,7 +104,7 @@ export default function SignUpComponent() {
               Create your room!
             </button>
 
-            <Button message={"Knock the door? Login!"} route={"/login"} />
+            <ActionBtn message={"Knock the door? Login!"} route={"/login"} />
           </div>
 
         </div>

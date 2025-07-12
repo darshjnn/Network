@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import styles from "./style.module.css";
-import buttonStyle from "../../../components/Button/style.module.css";
+import buttonStyle from "../../../components/Buttons/ActionBtn/style.module.css";
 
 import UserLayout from '@/layouts/UserLayout';
-import Navbar from '../../../components/Navbar';
-import Button from '../../../components/Button';
+
+import ActionBtn from '../../../components/Buttons/ActionBtn';
 import TextDanger from "../../../components/TextDanger";
 
 import { clearMessage } from '@/config/redux/reducer/authReducer';
@@ -17,16 +17,8 @@ import { loginUser } from '@/config/redux/action/authAction';
 export default function LogInComponent() {
   // Fetching authentication status of the user
   const authState = useSelector((state) => state.auth);
-
-  const router = useRouter();
   const dispatch = useDispatch();
-
-  // Redirect to '/dashboard' if user is already logged in
-  useEffect(() => {
-    if (authState.loggedIn || localStorage.getItem("token")) {
-      router.push("/dashboard");
-    }
-  }, [authState.loggedIn]);
+  const route = useRouter();
 
   // Handle Form Input
   let [formInp, setFormInp] = useState({
@@ -49,18 +41,22 @@ export default function LogInComponent() {
   }
 
   // Handling Login
-  const handleLogin = () => {
-    console.log(formInp)
-    dispatch(loginUser({
-      username: formInp.inpUser,
-      email: formInp.inpUser,
-      password: formInp.password
-    }));
+  const handleLogin = async () => {
+    try {
+      await dispatch(loginUser({
+        username: formInp.inpUser,
+        email: formInp.inpUser,
+        password: formInp.password
+      })).unwrap();
+
+      route.push("/feed");
+    } catch (error) {
+      route.push("/login")
+    }
   }
 
   return (
     <UserLayout>
-      <Navbar />
 
       <div className={styles.body}>
         <div className={styles.container}>
@@ -89,7 +85,7 @@ export default function LogInComponent() {
               Knock Knock!
             </button>
 
-            <Button message={"Don't have a room? Register yourself!"} route={"/signup"} />
+            <ActionBtn message={"Don't have a room? Register yourself!"} route={"/signup"} />
 
           </div>
 

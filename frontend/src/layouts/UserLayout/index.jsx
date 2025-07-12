@@ -1,13 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { currentUser } from '@/config/redux/action/authAction';
+import { getPosts } from '@/config/redux/action/postAction';
 
+import styles from "./style.module.css";
+
+import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
+
 export default function UserLayout({ children }) {
+    const route = useRouter();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            // Check if the token in local matches with the one in database
+            dispatch(currentUser({ token: localStorage.getItem("token") }))
+                .unwrap().catch(() => {
+                    route.push("/login");
+                    localStorage.clear("token");
+                });
+
+            // Fetch posts if the user is valid
+            dispatch(getPosts({ token: localStorage.getItem("token") }));
+        } else {
+            route.push("/login");
+        }
+    }, []);
+
     return (
-        <>            
-            {children}
+        <div className={styles.body}>
+            <Navbar />
+
+            <div className={styles.container}>
+
+                {children}
+
+            </div>
 
             <Footer />
-        </>
+        </div>
     )
 }

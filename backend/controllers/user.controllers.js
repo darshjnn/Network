@@ -91,6 +91,14 @@ export const login = async (req, res) => {
     return res.status(201).json({ token });
 }
 
+export const getCurrentUser = async (req, res) => {
+    const { token } = req.body;
+
+    const user = await User.findOne({ token: token });
+
+    return res.status(200).json(user);
+}
+
 // Upload/Update Profile Picture
 export const uploadProfilePic = async (req, res) => {
     const { token } = req.body;

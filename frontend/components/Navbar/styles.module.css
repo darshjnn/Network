@@ -1,14 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
 
 .container {
-    background-color: rgba(0, 0, 0, 0.565);
-    padding: 0.8rem 2.5rem 0.3rem 2.5rem;
-    position: fixed;
+    background-color: rgba(0, 0, 0, 0.818);
+    padding: 0.3rem 2.5rem 0rem 2.5rem;
     width: 100%;
-    border-radius: 0 0 0.5rem 0.5rem;
 }
 
-.navbar {
+.noUser,
+.validUser {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -21,7 +20,6 @@
     gap: 0.8rem;
     align-items: center;
     cursor: pointer;
-    ;
 }
 
 .routeHome>p {
@@ -31,11 +29,54 @@
     font-size: 1.3rem;
 }
 
-.buttonActions {
+.navbarMiddle {
+    justify-self: flex-end;
     display: flex;
-    gap: 0.3rem;
+    flex-direction: row;
+    gap: 0.2rem;
 }
 
-.buttonActions>button {
+.navbarRight {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.navbarRight>button {
     font-size: 1rem;
+}
+
+.userImgDiv {
+    position: relative;
+    display: flex;
+    place-items: center;
+    cursor: pointer;
+}
+
+.userImgDiv::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0 solid rgba(250, 235, 215, 0.178);
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2;
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+}
+
+.userImgDiv:hover::after {
+    opacity: 1;
+    transition: all 0.2s ease;
+    border-width: 3.5px;
+}
+
+.userImg {
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.473);
+    padding: 0.4rem;
 }

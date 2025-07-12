@@ -1,19 +1,12 @@
-import { useRouter } from "next/router";
-
 import UserLayout from "@/layouts/UserLayout";
 
-import Navbar from '../../components/Navbar';
-import Button from "../../components/Button";
+import Button from "../../components/Buttons/ActionBtn";
 
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
-  const router = useRouter();
-
   return (
     <UserLayout>
-
-      <Navbar />
 
       <div className={styles.body}>
         <main className={styles.mainContainer}>
@@ -34,7 +27,7 @@ export default function Home() {
             <img src="images/home_main.png" alt="connect with people" className={styles.mainContainerRightImg} />
           </div>
 
-          </main>
+        </main>
       </div>
     </UserLayout>
   );

@@ -35,7 +35,7 @@ router.route('/edit_post')
 
 // Get all Posts (only the post which are not archived and not active are to be fetched)
 router.route('/')
-    .get(wrapAsync(postController.getAllPosts));
+    .post(isLoggedIn, wrapAsync(postController.getAllPosts));
 
 // Delete Post
 router.route('/delete_post')
