@@ -54,6 +54,10 @@ router.route('/login')
 router.route('/current_user')
     .post(isLoggedIn, wrapAsync(userController.getCurrentUser));
 
+// Log Out
+router.route('/logout')
+    .post(isLoggedIn, wrapAsync(userController.logout));
+
 // Upload/Update Profile Picture
 router.route('/update_profile_picture')
     .post(upload, wrapAsync(userController.uploadProfilePic));

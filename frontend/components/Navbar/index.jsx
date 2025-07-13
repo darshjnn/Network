@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { reset } from '@/config/redux/reducer/authReducer';
 
 import ActionBtn from '../Buttons/ActionBtn';
 import InteractBtn from '../Buttons/InteractBtn';
@@ -9,18 +8,22 @@ import InteractBtn from '../Buttons/InteractBtn';
 import styles from "./styles.module.css";
 
 import { BASE_URL } from '@/config';
+import { logout } from '@/config/redux/action/authAction';
 
 export default function Navbar() {
   const authState = useSelector((state) => state.auth);
-
   const router = useRouter();
   const dispatch = useDispatch();
 
   // Log out
-  const logout = () => {
-    localStorage.removeItem("token");
-    router.push("/");
-    dispatch(reset());
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout({ token: localStorage.getItem("token") })).unwrap();
+      localStorage.removeItem("token");
+      router.push("/");
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -29,7 +32,7 @@ export default function Navbar() {
       {!(authState.userFetched) &&
         <nav className={styles.noUser}>
           <div className={styles.navbarLeft}>
-            <div onClick={() => { router.push("/login") }} className={styles.routeHome}>
+            <div onClick={() => { router.push("/") }} className={styles.routeHome}>
               <img src="svg/logo.svg" alt="logo" />
               <p>Network</p>
             </div>
@@ -46,7 +49,7 @@ export default function Navbar() {
       {(authState.userFetched) &&
         <nav className={styles.validUser}>
           <div className={styles.navbarLeft}>
-            <div onClick={() => { router.push("/login") }} className={styles.routeHome}>
+            <div onClick={() => { router.push("/feed") }} className={styles.routeHome}>
               <img src="svg/logo.svg" alt="logo" />
               <p>Network</p></div>
           </div>
@@ -68,7 +71,7 @@ export default function Navbar() {
               <img src={`${BASE_URL}/uploads/profile_pictures/${authState.user.profilePicture}`} alt="profile_pic" className={styles.userImg} />
             </div>
 
-            <div onClick={logout}>
+            <div onClick={handleLogout}>
               <ActionBtn message={`Log out`} />
             </div>
 

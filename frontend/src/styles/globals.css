@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Nokora:wght@100..900&display=swap');
+@font-face {
+  font-family: "Nokora";
+  src: url("../../public/fonts/Nokora.ttf");
+}
 
 * {
   margin: 0;

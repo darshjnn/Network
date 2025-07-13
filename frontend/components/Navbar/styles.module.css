@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+@font-face {
+    font-family: "Delius";
+    src: url("../../public/fonts/Delius.ttf");
+}
 
 .container {
     background-color: rgba(0, 0, 0, 0.818);

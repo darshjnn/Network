@@ -50,6 +50,7 @@ export default function LogInComponent() {
       })).unwrap();
 
       route.push("/feed");
+
     } catch (error) {
       route.push("/login")
     }
@@ -95,6 +96,7 @@ export default function LogInComponent() {
 
         </div>
       </div>
+      
     </UserLayout>
   );
 }

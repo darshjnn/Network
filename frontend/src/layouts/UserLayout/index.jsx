@@ -19,14 +19,12 @@ export default function UserLayout({ children }) {
             // Check if the token in local matches with the one in database
             dispatch(currentUser({ token: localStorage.getItem("token") }))
                 .unwrap().catch(() => {
-                    route.push("/login");
+                    route.push("/");
                     localStorage.clear("token");
                 });
 
             // Fetch posts if the user is valid
             dispatch(getPosts({ token: localStorage.getItem("token") }));
-        } else {
-            route.push("/login");
         }
     }, []);
 

@@ -59,3 +59,18 @@ export const currentUser = createAsyncThunk(
         }
     }
 );
+
+export const logout = createAsyncThunk(
+    "user/logout",
+    async (user, thunkApi) => {
+        try {
+            const response = await clientServer.post("/user/logout", {
+                token: user.token
+            });
+
+        } catch (err) {
+            return thunkApi.rejectWithValue(err.response.data);
+
+        }
+    }
+);

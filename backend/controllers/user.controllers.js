@@ -53,10 +53,6 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password, username } = req.body;
 
-    if (email && !validator.isEmail(email)) {
-        return res.status(400).json({ message: "Enter a valid Email..." });
-    }
-
     if ((!email && !username) || !password) {
         return res.status(400).json({ message: "All fields are must..." });
     }
@@ -91,12 +87,23 @@ export const login = async (req, res) => {
     return res.status(201).json({ token });
 }
 
+// Fetch Current User
 export const getCurrentUser = async (req, res) => {
     const { token } = req.body;
 
-    const user = await User.findOne({ token: token });
+    const user = await User.findOne({ token: token })
+        .select('_id name email profilePicture createdAt active blocked');
 
     return res.status(200).json(user);
+}
+
+// Log out
+export const logout = async (req, res) => {
+    const { token } = req.body;
+
+    await User.findOneAndUpdate({ token: token }, { $set: { token: null } }, { new: true });
+
+    return res.status(200).json({ message: "Log out successful..." });
 }
 
 // Upload/Update Profile Picture
