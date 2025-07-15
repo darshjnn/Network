@@ -27,14 +27,14 @@ export default function Navbar() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.navContainer}>
 
       {!(authState.userFetched) &&
         <nav className={styles.noUser}>
           <div className={styles.navbarLeft}>
             <div onClick={() => { router.push("/") }} className={styles.routeHome}>
               <img src="svg/logo.svg" alt="logo" />
-              <p>Network</p>
+              <p className={styles.logoText}>Network</p>
             </div>
           </div>
 
@@ -51,7 +51,7 @@ export default function Navbar() {
           <div className={styles.navbarLeft}>
             <div onClick={() => { router.push("/feed") }} className={styles.routeHome}>
               <img src="svg/logo.svg" alt="logo" />
-              <p>Network</p></div>
+              <p className={styles.logoText}>Network</p></div>
           </div>
 
           <div className={styles.navbarMiddle}>
@@ -61,13 +61,13 @@ export default function Navbar() {
 
             <InteractBtn message={"Discover"} route={"/discover"} svg={"search.svg"} />
 
-            <InteractBtn message={"My Profile"} route={"/dashboard"} svg={"configure.svg"} />
+            <InteractBtn message={"My Profile"} route={"/profile"} svg={"configure.svg"} />
 
           </div>
 
           <div className={styles.navbarRight}>
 
-            <div className={styles.userImgDiv} onClick={() => { router.push("/dashboard") }}>
+            <div className={styles.userImgDiv} onClick={() => { router.push("/profile") }}>
               <img src={`${BASE_URL}/uploads/profile_pictures/${authState.user.profilePicture}`} alt="profile_pic" className={styles.userImg} />
             </div>
 

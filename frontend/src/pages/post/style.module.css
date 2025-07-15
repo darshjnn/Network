@@ -1,0 +1,29 @@
+.createPostContainer {
+    background: linear-gradient(45deg, #FFCE0050, #A6E08850);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 3rem;
+}
+
+.userImg {
+    align-self: center;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.322);
+    padding: 0.4rem;
+}
+
+.textAreaDiv {
+    justify-self: center;
+    width: 80%;
+}
+
+.actionBtn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+}

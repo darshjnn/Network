@@ -62,6 +62,9 @@ export default function SignUpComponent() {
 
   return (
     <UserLayout>
+      <title>
+        Sign Up | Network
+      </title>
 
       <div className={styles.body}>
         <div className={styles.container}>

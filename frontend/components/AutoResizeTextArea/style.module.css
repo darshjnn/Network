@@ -1,0 +1,26 @@
+.textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.5rem;
+    background-color: rgba(250, 235, 215, 0.497);
+    resize: none;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.7s ease;
+    transition: box-shadow 0.2s ease;
+    outline: none;
+}
+
+.textarea::placeholder {
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.textarea:focus {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
+}

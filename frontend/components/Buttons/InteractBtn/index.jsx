@@ -11,7 +11,7 @@ export default function index({ message, svg, route }) {
             {(route && svg) &&
                 <button type="button" onClick={() => router.push(route)} className={styles.btn}>
                     <img src={`svg/${svg}`} alt={`${svg}`} className={styles.btnImg} />
-                    {message}
+                    <p>{message}</p>
                 </button>
         }
         </>

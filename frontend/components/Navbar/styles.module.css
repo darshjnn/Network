@@ -3,7 +3,7 @@
     src: url("../../public/fonts/Delius.ttf");
 }
 
-.container {
+.navContainer {
     background-color: rgba(0, 0, 0, 0.818);
     padding: 0.3rem 2.5rem 0rem 2.5rem;
     width: 100%;
@@ -82,4 +82,22 @@
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.473);
     padding: 0.4rem;
+}
+
+@media (max-width: 720px) {
+    .routeHome {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbarMiddle>button>p {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .userImg {
+        display: none;
+    }
 }

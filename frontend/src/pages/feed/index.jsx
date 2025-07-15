@@ -12,7 +12,7 @@ export default function index() {
         <UserLayout>
 
             <FeedLayout>
-                <div className={styles.container}>
+                <div className={styles.feedBody}>
 
                     <p>lol posts</p>
 

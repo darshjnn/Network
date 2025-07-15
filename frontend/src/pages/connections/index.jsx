@@ -3,7 +3,11 @@ import React from 'react'
 
 export default function index() {
   return (
-      <UserLayout>
+    <UserLayout>
+      
+       <title>
+        Connections | Network
+      </title>
           
       <div>
           <p>My Connections</p>

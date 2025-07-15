@@ -1,3 +1,8 @@
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { currentUser } from '@/config/redux/action/authAction';
+import { getPosts } from '@/config/redux/action/postAction';
 import UserLayout from "@/layouts/UserLayout";
 
 import Button from "../../components/Buttons/ActionBtn";
@@ -5,6 +10,23 @@ import Button from "../../components/Buttons/ActionBtn";
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
+  const route = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      // Check if the token in local matches with the one in database
+      dispatch(currentUser({ token: localStorage.getItem("token") }))
+        .unwrap().catch(() => {
+          route.push("/");
+          localStorage.clear("token");
+        });
+
+      // Push to "/feed" if valid is there
+      route.push("/feed");
+    }
+  }, []);
+
   return (
     <UserLayout>
 

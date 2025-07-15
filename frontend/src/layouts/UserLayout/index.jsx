@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { currentUser } from '@/config/redux/action/authAction';
-import { getPosts } from '@/config/redux/action/postAction';
 
 import styles from "./style.module.css";
 
@@ -22,9 +21,8 @@ export default function UserLayout({ children }) {
                     route.push("/");
                     localStorage.clear("token");
                 });
-
-            // Fetch posts if the user is valid
-            dispatch(getPosts({ token: localStorage.getItem("token") }));
+        } else {
+            route.push("/");
         }
     }, []);
 

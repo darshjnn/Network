@@ -58,6 +58,9 @@ export default function LogInComponent() {
 
   return (
     <UserLayout>
+      <title>
+        Log In | Network
+      </title>
 
       <div className={styles.body}>
         <div className={styles.container}>
@@ -96,7 +99,7 @@ export default function LogInComponent() {
 
         </div>
       </div>
-      
+
     </UserLayout>
   );
 }
