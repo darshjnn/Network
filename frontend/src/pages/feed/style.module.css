@@ -1,0 +1,59 @@
+.feedBody {
+    justify-self: center;
+    width: 70%;
+}
+
+.postContainer {
+    width: 100%;
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: rgba(240, 248, 255, 0.452);
+    border: 1.2px solid rgba(0, 0, 0, 0.466);
+    border-radius: 10px 10px 0 0;
+
+}
+
+.postHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.userImg {
+    width: auto;
+    height: 30px;
+    max-width: 30px;
+    object-fit: contain;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.userInfo>p:nth-child(2) {
+    color: grey;
+    font-size: small;
+}
+
+.postImgContainer {
+    margin-top: 8px;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.postImg {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.postBodyContainer {
+    margin-top: 10px;
+    padding: 0 10px;
+}

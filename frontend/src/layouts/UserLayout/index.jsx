@@ -21,9 +21,7 @@ export default function UserLayout({ children }) {
                     route.push("/");
                     localStorage.clear("token");
                 });
-        } else {
-            route.push("/");
-        }
+        } 
     }, []);
 
     return (

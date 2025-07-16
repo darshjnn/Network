@@ -6,11 +6,11 @@ export const getPosts = createAsyncThunk(
     async (user, thunkApi) => {
         try {
             const response = await clientServer.post("/posts", {
-                token: user.token
+                token: localStorage.getItem("token")
             });
 
             return thunkApi.fulfillWithValue(response.data);
-            
+
         } catch (err) {
             return thunkApi.rejectWithValue(err.response.data);
         }
@@ -34,7 +34,7 @@ export const createPost = createAsyncThunk(
             });
 
             if (response.status === 201) {
-                return thunkApi.fulfillWithValue({status: response.status});
+                return thunkApi.fulfillWithValue({ status: response.status });
             } else {
                 return thunkApi.rejectWithValue(response.data);
             }

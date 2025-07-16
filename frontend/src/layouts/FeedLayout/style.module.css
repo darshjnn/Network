@@ -17,6 +17,22 @@
     flex-direction: column;
 }
 
+.feedContainer {
+    align-items: center;
+}
+
 .createPost {
     align-self: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.466);
+}
+
+@media (max-width: 750px) {
+    .userContainer {
+        display: none;
+    }
+
+    .feedMainContainer>div:nth-child(even) {
+        flex: 1;
+    }
 }

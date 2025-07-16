@@ -124,7 +124,7 @@ export const uploadProfilePic = async (req, res) => {
         return res.status(400).json({ message: "Invalid file type. Only JPEG, JPG, and PNG are allowed..." });
     }
 
-    user.profilePicture = req.file.fileName;
+    user.profilePicture = req.file.filename;
     await user.save();
 
     return res.status(201).json({ message: "Profile Picture Updated..." });

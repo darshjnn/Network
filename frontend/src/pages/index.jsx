@@ -22,7 +22,7 @@ export default function Home() {
           localStorage.clear("token");
         });
 
-      // Push to "/feed" if valid is there
+      // Push to "/feed" if valid user is there
       route.push("/feed");
     }
   }, []);

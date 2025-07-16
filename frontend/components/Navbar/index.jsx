@@ -63,6 +63,8 @@ export default function Navbar() {
 
             <InteractBtn message={"My Profile"} route={"/profile"} svg={"configure.svg"} />
 
+            <InteractBtn message={"Create Post"} route={"/post"} svg={"add.svg"} />
+
           </div>
 
           <div className={styles.navbarRight}>

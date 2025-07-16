@@ -33,7 +33,6 @@
 }
 
 .navbarMiddle {
-    justify-self: flex-end;
     display: flex;
     flex-direction: row;
     gap: 0.2rem;
@@ -61,7 +60,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    border: 0 solid rgba(250, 235, 215, 0.178);
+    border: 0 solid rgba(250, 235, 215, 0.291);
     border-radius: 50%;
     height: 100%;
     width: 100%;
@@ -74,14 +73,22 @@
 .userImgDiv:hover::after {
     opacity: 1;
     transition: all 0.2s ease;
-    border-width: 3.5px;
+    border-width: 3px;
 }
 
 .userImg {
     height: 40px;
+    overflow: hidden;
+    width: auto;
+    max-width: 40px;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.473);
-    padding: 0.4rem;
+}
+
+@media (max-width: 830px) {
+    .navbarMiddle>button:nth-child(5) {
+        display: none;
+    }
 }
 
 @media (max-width: 720px) {

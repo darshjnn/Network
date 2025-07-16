@@ -22,13 +22,13 @@ export default function index({ children }) {
         });
 
       // Fetch posts if the user is valid
-      dispatch(getPosts({ token: localStorage.getItem("token") }));
+      dispatch(getPosts());
     } else {
       route.push("/");
     }
   }, []);
 
-  return (    
+  return (
     <div className={styles.feedMainContainer}>
       <title>
         Feed | Network
@@ -41,7 +41,7 @@ export default function index({ children }) {
       <div className={styles.feedContainer}>
 
         <div className={styles.createPost}>
-          <ActionBtn message={"Share Your Thoughts. Create a new Post"} route={"/post"} />          
+          <ActionBtn message={"Share Your Thoughts. Create a new Post?"} route={"/post"} />
         </div>
 
         {children}
