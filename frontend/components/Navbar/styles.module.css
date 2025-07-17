@@ -77,6 +77,9 @@
 }
 
 .userImg {
+    padding: 0.2rem;
+    align-self: center;
+    justify-self: center;
     height: 40px;
     overflow: hidden;
     width: auto;

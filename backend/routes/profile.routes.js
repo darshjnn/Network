@@ -4,21 +4,23 @@ import { wrapAsync } from "../utils/wrapAsync.js";
 
 import { isLoggedIn } from "../middlewares/authentication/isLoggedIn.js";
 
-import * as profileController from "../controllers/profile.controllers.js";
+import { getUserProfile } from "../controllers/profile_controllers/getUserProfile.js";
+import { updateUserProfile } from "../controllers/profile_controllers/updateUserProfile.js";
+import { downloadProfile } from "../controllers/profile_controllers/downloadProfile.js";
 
 const router = Router();
 
 // Update User Profile
 router.route('/user_profile')
     .get(
-        isLoggedIn, wrapAsync(profileController.getUserProfile)
+        isLoggedIn, wrapAsync(getUserProfile)
     )
     .post(
-        isLoggedIn, wrapAsync(profileController.updateUserProfile)
-);
+        isLoggedIn, wrapAsync(updateUserProfile)
+    );
 
 // Download User Profile
 router.route('/get_resume')
-    .get(wrapAsync(profileController.downloadProfile));
+    .get(wrapAsync(downloadProfile));
 
 export default router;

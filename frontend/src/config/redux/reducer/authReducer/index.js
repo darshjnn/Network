@@ -1,5 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { loginUser, registerUser, currentUser, logout } from "../../action/authAction";
+import { createSlice } from "@reduxjs/toolkit";
+
+import { loginUser } from "../../action/authAction/loginUser";
+import { currentUser } from "../../action/authAction/currentUser";
+import { logout } from "../../action/authAction/logout";
+import { registerUser } from "../../action/authAction/registerUser";
 
 const initialState = {
     user: undefined,

@@ -12,7 +12,7 @@ import ActionBtn from '../../../components/Buttons/ActionBtn';
 import TextDanger from "../../../components/TextDanger";
 
 import { clearMessage } from '@/config/redux/reducer/authReducer';
-import { loginUser } from '@/config/redux/action/authAction';
+import { loginUser } from '@/config/redux/action/authAction/loginUser';
 
 export default function LogInComponent() {
   // Fetching authentication status of the user

@@ -7,7 +7,12 @@ import { wrapAsync } from "../utils/wrapAsync.js";
 
 import { isLoggedIn } from "../middlewares/authentication/isLoggedIn.js";
 
-import * as userController from '../controllers/user.controllers.js';
+import { signup } from "../controllers/user_controllers/signup.js";
+import { login } from "../controllers/user_controllers/login.js";
+import { logout } from '../controllers/user_controllers/logout.js';
+import { updateUser } from '../controllers/user_controllers/updateUser.js';
+import { getCurrentUser } from '../controllers/user_controllers/getCurrentUser.js';
+import { uploadProfilePic } from '../controllers/user_controllers/uploadProfilePic.js';
 
 const router = Router();
 
@@ -44,26 +49,26 @@ const checkFileType = (file, cb) => {
 
 // Register User
 router.route('/signup')
-    .post(wrapAsync(userController.signup));
+    .post(wrapAsync(signup));
 
 // Login
 router.route('/login')
-    .post(wrapAsync(userController.login));
+    .post(wrapAsync(login));
 
 // Get Current User
 router.route('/current_user')
-    .post(isLoggedIn, wrapAsync(userController.getCurrentUser));
+    .post(isLoggedIn, wrapAsync(getCurrentUser));
 
 // Log Out
 router.route('/logout')
-    .post(isLoggedIn, wrapAsync(userController.logout));
+    .post(isLoggedIn, wrapAsync(logout));
 
 // Upload/Update Profile Picture
 router.route('/update_profile_picture')
-    .post(upload, wrapAsync(userController.uploadProfilePic));
+    .post(upload, wrapAsync(uploadProfilePic));
 
 // Update User Details(name, username, email)
 router.route('/update_user')
-    .post(isLoggedIn, wrapAsync(userController.updateUser));
+    .post(isLoggedIn, wrapAsync(updateUser));
 
 export default router;

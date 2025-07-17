@@ -1,8 +1,7 @@
+import { Profile } from "../../models/profile.model.js";
+
 import PDFDocument from "pdfkit";
 import fs from "fs";
-
-import { User } from "../models/user.model.js";
-import { Profile } from '../models/profile.model.js';
 
 // Create PDF for User profile
 const userDataToPdf = async (profile) => {
@@ -36,31 +35,6 @@ const userDataToPdf = async (profile) => {
     return fileName;
 }
 
-// Fetch User Profile
-export const getUserProfile = async (req, res) => {
-    const { token } = req.body;
-
-    const user = await User.findOne({ token: token, active: true, blocked: false });
-
-    const userProfile = await Profile.findOne({ userId: user._id })
-        .populate('userId', 'username name email profilePicture');
-
-    return res.status(200).json({ userProfile });
-}
-
-// Update User Profile
-export const updateUserProfile = async (req, res) => {
-    const { token, ...newProfileData } = req.body;
-
-    const user = await User.findOne({ token: token, active: true, blocked: false });
-    const profile = await Profile.findOne({ userId: user._id });
-
-    Object.assign(profile, newProfileData);
-    await profile.save();
-
-    return res.status(201).json({ message: "User Profile Updated..." });
-}
-
 // Download User Profile
 export const downloadProfile = async (req, res) => {
     const user_id = req.query.id;
@@ -71,4 +45,4 @@ export const downloadProfile = async (req, res) => {
     let profilePdf = await userDataToPdf(userProfile);
 
     return res.json({ "message": profilePdf });
-}
+};

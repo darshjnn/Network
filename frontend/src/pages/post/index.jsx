@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { currentUser } from '@/config/redux/action/authAction';
-import { createPost } from '@/config/redux/action/postAction';
+
+import { currentUser } from '@/config/redux/action/authAction/currentUser';
+import { createPost } from '@/config/redux/action/postAction/createPost';
 
 import UserLayout from '@/layouts/UserLayout';
 

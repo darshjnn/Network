@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPosts } from "../../action/postAction";
+import { getPosts } from "../../action/postAction/getPosts";
+import { createPost } from "../../action/postAction/createPost";
 
 const initialState = {
     loggedIn: false,
@@ -37,7 +38,21 @@ const postSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
-        })
+            })
+            .addCase(createPost.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Wait while creating a new post...";
+            })
+            .addCase(createPost.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.postFetched = true;
+            })
+            .addCase(createPost.rejected, (state) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
     }
 });
 

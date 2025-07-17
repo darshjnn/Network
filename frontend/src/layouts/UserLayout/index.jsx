@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { currentUser } from '@/config/redux/action/authAction';
+
+import { currentUser } from '@/config/redux/action/authAction/currentUser';
 
 import styles from "./style.module.css";
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
+import { logout } from '@/config/redux/action/authAction/logout';
+
 import ActionBtn from '../Buttons/ActionBtn';
 import InteractBtn from '../Buttons/InteractBtn';
 
 import styles from "./styles.module.css";
 
 import { BASE_URL } from '@/config';
-import { logout } from '@/config/redux/action/authAction';
 
 export default function Navbar() {
   const authState = useSelector((state) => state.auth);

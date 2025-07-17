@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import styles from "./style.module.css";
 import buttonStyle from "../../../components/Buttons/ActionBtn/style.module.css";
@@ -10,12 +10,13 @@ import UserLayout from '@/layouts/UserLayout';
 import ActionBtn from '../../../components/Buttons/ActionBtn';
 import TextDanger from "../../../components/TextDanger";
 
-import { loginUser, registerUser } from '@/config/redux/action/authAction';
+import { loginUser } from '@/config/redux/action/authAction/loginUser';
+import { registerUser } from '@/config/redux/action/authAction/registerUser';
 import { clearMessage } from '@/config/redux/reducer/authReducer';
 
 export default function SignUpComponent() {
   const authState = useSelector((state) => state.auth);
-
+  const route = useRouter();
   const dispatch = useDispatch();
 
   // Clear auth message on mount
@@ -56,7 +57,9 @@ export default function SignUpComponent() {
       dispatch(loginUser({
         email: formInp.inpEmail,
         password: formInp.password
-      }));
+      })).unwrap();
+
+      route.push("/feed")
     }
   }, [authState.isSuccess, formInp.inpEmail, formInp.inpUsername, formInp.password]);
 

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { currentUser } from '@/config/redux/action/authAction';
-import { getPosts } from '@/config/redux/action/postAction';
+
+import { currentUser } from '@/config/redux/action/authAction/currentUser';
+import { getPosts } from '@/config/redux/action/postAction/getPosts';
 
 import styles from "./style.module.css";
 

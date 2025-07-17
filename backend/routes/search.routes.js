@@ -2,12 +2,12 @@ import { Router } from "express";
 
 import { wrapAsync } from "../utils/wrapAsync.js";
 
-import * as searchController from "../controllers/search.controller.js";
+import { searchUsers } from "../controllers/search_controllers/searchUsers.js";
 
 const router = Router();
 
 // Search all User Profiles by 'name'
 router.route('/users')
-    .get(wrapAsync(searchController.searchUsers));
+    .get(wrapAsync(searchUsers));
 
 export default router;
