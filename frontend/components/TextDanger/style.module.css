@@ -1,9 +1,27 @@
-.text {
-    color: red;
-    border: 1px solid rgba(255, 0, 0, 0.599);
-    background-color: rgba(255, 0, 0, 0.065);
-    padding: 0.5rem;
+.textWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 5rem;
+    border: 1px solid red;
     border-radius: 0.5rem;
+    background-color: coral;
+    padding: 0.5rem;
+}
+
+.text {
+    color: black;
     width: max-content;
     align-self: center;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    display: flex;
+    place-items: center;
+    cursor: pointer;
 }

@@ -16,6 +16,10 @@ export const signup = async (req, res) => {
         return res.status(400).json({ message: "Enter a valid Email..." });
     }
 
+    if (!validator.matches(username, "^[a-zA-Z0-9_\.\-]*$")) {
+        return res.status(400).json({ message: "Enter a valid Username..." });
+    }
+
     const user = await User.findOne({
         $or: [
             { email: email },

@@ -18,7 +18,7 @@ export const createPost = createAsyncThunk(
             });
 
             if (response.status === 201) {
-                return thunkApi.fulfillWithValue({ status: response.status });
+                return thunkApi.fulfillWithValue(response.data);
             } else {
                 return thunkApi.rejectWithValue(response.data);
             }

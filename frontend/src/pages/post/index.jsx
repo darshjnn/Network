@@ -19,38 +19,16 @@ import { BASE_URL } from '@/config';
 
 export default function index() {
   const authState = useSelector((state) => state.auth);
-  const route = useRouter();
+  const postState = useSelector((state) => state.post);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      // Check if the token in local matches with the one in database
-      dispatch(currentUser({ token: localStorage.getItem("token") }))
-        .unwrap().catch(() => {
-          route.push("/");
-          localStorage.clear("token");
-        });
-    } else {
-      route.push("/");
-    }
-  }, []);
-
 
   const [postContent, setPostContent] = useState("");
   const [fileContent, setFileContent] = useState();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
 
   const handleCreatePost = async () => {
-    try {
-      const result = dispatch(createPost({ file: fileContent, body: postContent })).unwrap();
-
-      setSuccessMessage("Post Created Successfully");
+      await dispatch(createPost({ file: fileContent, body: postContent })).unwrap();
       setPostContent("");
       setFileContent(null);
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
   }
 
   return (
@@ -64,8 +42,8 @@ export default function index() {
 
         {authState.user && <img src={`${BASE_URL}/uploads/profile_pictures/${authState.user.profilePicture}`} alt="profile_pic" className={styles.userImg} />}
 
-        {errorMessage && <TextDanger message={errorMessage} />}
-        {successMessage && <TextSuccess message={successMessage} />}
+        {postState.isError && <TextDanger message={postState.message.message} />}
+        {postState.message.message && <TextSuccess message={postState.message.message} />}
 
         <div className={styles.createPost}>
 

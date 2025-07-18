@@ -13,7 +13,7 @@ export default function index({ message, svg, route }) {
                     <img src={`svg/${svg}`} alt={`${svg}`} className={styles.btnImg} />
                     <p>{message}</p>
                 </button>
-        }
+            }
         </>
     );
 }
