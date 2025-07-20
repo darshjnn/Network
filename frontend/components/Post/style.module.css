@@ -1,5 +1,6 @@
 .postContainer {
-    width: 100%;
+    width: 85%;
+    justify-self: center;
     padding: 0.5rem;
     background-color: rgba(240, 248, 255, 0.452);
     border: 1.2px solid rgba(0, 0, 0, 0.466);
@@ -59,10 +60,40 @@
 
 .postBodyContainer {
     margin-top: 10px;
-    padding: 0 10px;
+    padding: 3px 10px;
+}
+
+.postActions {
+    margin: 0;
+    width: 85%;
+    padding: 0.3rem;
+    justify-self: center;
+    color: aliceblue;
+    background-color: rgba(128, 128, 128, 0.527);
+    border: 1.2px solid rgba(0, 0, 0, 0.466);
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.postActions>div>button {
+    padding-block: 0.3rem;
+    padding-inline: 1rem;
 }
 
 .postFooter {
     font-size: smaller;
     padding-top: 0.3rem;
+}
+
+@media (max-width: 600px) {
+    .postContainer {
+        width: 100%;
+    }
+
+    .postActions {
+        width: 100%;
+    }
 }

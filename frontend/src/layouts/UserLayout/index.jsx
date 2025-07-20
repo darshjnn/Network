@@ -22,7 +22,7 @@ export default function UserLayout({ children }) {
                     route.push("/");
                     localStorage.clear("token");
                 });
-        } 
+        }
     }, []);
 
     return (

@@ -4,12 +4,20 @@
     justify-content: center;
     align-self: center;
     gap: 0.5rem;
-    position: absolute;
-    top: 5rem;
+    position: fixed;
+    top: 3rem;
+    left: 50%;
     border: 1px solid red;
     border-radius: 0.5rem;
     background-color: coral;
     padding: 0.5rem;
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.textWrapper:hover {
+    transform: scale(1.02);
+    transition: all 0.2s ease;
 }
 
 .text {
@@ -24,4 +32,10 @@
     display: flex;
     place-items: center;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+    transform: scale(1.08);
+    transition: all 0.2s ease;
 }

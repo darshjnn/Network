@@ -67,10 +67,9 @@ export default function LogInComponent() {
 
           <div className={styles.containerLeft}>
             {
-              authState.message.message ?
+              (authState.isError && authState.message.message) && 
                 <TextDanger message={authState.message.message} />
-                :
-                <></>
+                
             }
 
             <br />

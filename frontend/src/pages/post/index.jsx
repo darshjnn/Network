@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { currentUser } from '@/config/redux/action/authAction/currentUser';
 import { createPost } from '@/config/redux/action/postAction/createPost';
 
 import UserLayout from '@/layouts/UserLayout';
@@ -20,15 +19,22 @@ import { BASE_URL } from '@/config';
 export default function index() {
   const authState = useSelector((state) => state.auth);
   const postState = useSelector((state) => state.post);
+  const route = useRouter();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      route.push("/");
+    }
+  }, []);
 
   const [postContent, setPostContent] = useState("");
   const [fileContent, setFileContent] = useState();
 
   const handleCreatePost = async () => {
-      await dispatch(createPost({ file: fileContent, body: postContent })).unwrap();
-      setPostContent("");
-      setFileContent(null);
+    await dispatch(createPost({ file: fileContent, body: postContent })).unwrap();
+    setPostContent("");
+    setFileContent(null);
   }
 
   return (

@@ -1,11 +1,11 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const deletePost = createAsyncThunk(
-    "posts/delete_post",
+export const toggleArchivePost = createAsyncThunk(
+    "posts/toggle_archive_post",
     async (post, thunkApi) => {
         try {
-            const response = await clientServer.post("/posts/delete_post", {
+            const response = await clientServer.post("/posts/toggle_archive_post", {
                 token: localStorage.getItem("token"),
                 postId: post.postId
             });

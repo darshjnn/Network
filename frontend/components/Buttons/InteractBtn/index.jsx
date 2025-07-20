@@ -14,6 +14,14 @@ export default function index({ message, svg, route }) {
                     <p>{message}</p>
                 </button>
             }
+
+            {
+                (!route) && svg &&
+                <button type="button" className={styles.btn}>
+                    <img src={`svg/${svg}`} alt={`${svg}`} className={styles.btnImg} />
+                    <p>{message}</p>
+                </button>
+            }
         </>
     );
 }
