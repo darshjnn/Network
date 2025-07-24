@@ -4,10 +4,17 @@ import { useRouter } from 'next/router';
 
 import { logout } from '@/config/redux/action/authAction/logout';
 
+import styles from "./styles.module.css";
+
 import ActionBtn from '../Buttons/ActionBtn';
 import InteractBtn from '../Buttons/InteractBtn';
 
-import styles from "./styles.module.css";
+import LogoSVG from "@/svg/logo.svg"
+import HomeSVG from "@/svg/home.svg";
+import ConnectionSVG from "@/svg/connection.svg";
+import SearchSVG from "@/svg/search.svg";
+import ConfigureSVG from "@/svg/configure.svg";
+import AddSVG from "@/svg/add.svg";
 
 import { BASE_URL } from '@/config';
 
@@ -34,8 +41,8 @@ export default function Navbar() {
         <nav className={styles.noUser}>
           <div className={styles.navbarLeft}>
             <div onClick={() => { router.push("/") }} className={styles.routeHome}>
-              <img src="svg/logo.svg" alt="logo" />
-              <p className={styles.logoText}>Network</p>
+              <LogoSVG />
+              <span className={styles.logoText}>Network</span>
             </div>
           </div>
 
@@ -51,20 +58,20 @@ export default function Navbar() {
         <nav className={styles.validUser}>
           <div className={styles.navbarLeft}>
             <div onClick={() => { router.push("/feed") }} className={styles.routeHome}>
-              <img src="svg/logo.svg" alt="logo" />
-              <p className={styles.logoText}>Network</p></div>
+              <LogoSVG />
+              <span className={styles.logoText}>Network</span></div>
           </div>
 
           <div className={styles.navbarMiddle}>
-            <InteractBtn message={"Home"} route={"/feed"} svg={"home.svg"} />
+            <InteractBtn message={"Home"} route={"/feed"} svg={<HomeSVG />} />
 
-            <InteractBtn message={"Connections"} route={"/connections"} svg={"connection.svg"} />
+            <InteractBtn message={"Connections"} route={"/connections"} svg={<ConnectionSVG />} />
 
-            <InteractBtn message={"Discover"} route={"/discover"} svg={"search.svg"} />
+            <InteractBtn message={"Discover"} route={"/discover"} svg={<SearchSVG />} />
 
-            <InteractBtn message={"My Profile"} route={"/profile"} svg={"configure.svg"} />
+            <InteractBtn message={"My Profile"} route={"/profile"} svg={<ConfigureSVG />} />
 
-            <InteractBtn message={"Create Post"} route={"/post"} svg={"add.svg"} />
+            <InteractBtn message={"Create Post"} route={"/post"} svg={<AddSVG />} />
 
           </div>
 
@@ -74,7 +81,7 @@ export default function Navbar() {
               <img src={`${BASE_URL}/uploads/profile_pictures/${authState.user.profilePicture}`} alt="profile_pic" className={styles.userImg} />
             </div>
 
-            <div onClick={handleLogout}>
+            <div className={styles.logoutBtn} onClick={handleLogout}>
               <ActionBtn message={`Log out`} />
             </div>
 

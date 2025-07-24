@@ -25,11 +25,10 @@ export default function index() {
   }, []);
 
   useEffect(() => {
-    // Fetch posts if the user is valid
-    if (authState.user) {
+    if (localStorage.getItem("token")) {
       dispatch(getPosts());
     }
-  }, [authState.user]);
+  }, []);
 
   return (
     <UserLayout>
@@ -43,9 +42,9 @@ export default function index() {
           {authState.user &&
             postState.posts?.map((p) => {
               return (
-                <span key={p._id}>
+                <div key={p._id}>
                   <Post userId={authState.user._id} post={p} />
-                </span>
+                </div>
               );
             })
           }

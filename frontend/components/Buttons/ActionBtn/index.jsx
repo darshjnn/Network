@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import styles from "./style.module.css";
 
-export default function Button({ message, route, type = "button" }) {
+export default function ActionBtn({ message, route, type = "button" }) {
   const router = useRouter();
 
   return (

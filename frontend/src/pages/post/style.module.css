@@ -23,6 +23,10 @@
     width: 80%;
 }
 
+.textAreaDiv>textarea {
+    min-height: 6rem;
+}
+
 .actionBtn {
     display: flex;
     flex-wrap: wrap;

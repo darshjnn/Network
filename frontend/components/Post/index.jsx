@@ -1,37 +1,54 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getPosts } from '@/config/redux/action/postAction/getPosts';
 import { toggleLikePost } from '@/config/redux/action/postAction/toggleLikePost';
+import { getComments } from '@/config/redux/action/postAction/getComments';
+
+import { resetComment } from '@/config/redux/reducer/postReducer';
 
 import styles from "./style.module.css";
 
 import InteractBtn from "../Buttons/InteractBtn";
+import Comment from "../Comment";
+
+import LikeSVG from "@/svg/like.svg";
+import LikeFilledSVG from "@/svg/liked_filled.svg";
+import CommentSVG from "@/svg/comment.svg";
+import CloseSVG from "@/svg/close.svg";
 
 import { BASE_URL } from '@/config';
 
-export default function Post({ userId, post }) {
-  const dispatch = useDispatch()
+export default function Post({ userId, post_Id, post }) {
+  const postState = useSelector((state) => state.post);
+  const dispatch = useDispatch();
 
   const handleTogglePostLike = async (postId) => {
     await dispatch(toggleLikePost({ postId: postId })).unwrap();
-    await dispatch(getPosts());
+    await dispatch(getPosts()).unwrap();
+  }
+
+  const handleGetComments = async (postId) => {
+    await dispatch(getComments({ postId: postId })).unwrap();
+  }
+
+  const handleResetComment = () => {
+    dispatch(resetComment());
   }
 
   return (
     <>
-
       <div className={styles.postContainer}>
         {
           (post.createdAt !== post.updatedAt) && <p className={styles.isEdited}>Edited</p>
         }
 
         <div className={styles.postHeader}>
-          <img src={`${BASE_URL}/uploads/profile_pictures/${post.userId.profilePicture}`} alt="user_img" className={styles.userImg} />
+          <img src={`${BASE_URL}/uploads/profile_pictures/${post.userId.profilePicture}`} alt={post.userId.username} className={styles.userImg} />
 
           <div className={styles.userInfo}>
-            <p><b>{post.userId.name}</b></p>
-            <p>@{post.userId.username}</p>
+            <span><b>{post.userId.name}</b></span>
+            <span>@{post.userId.username}</span>
           </div>
         </div>
 
@@ -50,31 +67,51 @@ export default function Post({ userId, post }) {
         </div>
 
         <div className={styles.postFooter}>
-          <p>Posted on: {post.createdAt.toString().split('T')[0]}</p>
+          Posted on: {new Date(post.createdAt).toLocaleString()}
         </div>
       </div>
 
       <div className={styles.postActions}>
-        <p className="likes">
+        <span className="likes">
           Likes: {post.likes}
-        </p>
+        </span>
         {
           !post.likedBy.includes(userId) &&
           <div className={styles.likePost} onClick={() => handleTogglePostLike(post._id)}>
-            <InteractBtn message={"Like"} svg={"like.svg"} />
+            <InteractBtn message={"Like"} svg={<LikeSVG />} />
           </div>
         }
 
         {
           post.likedBy.includes(userId) &&
           <div className={styles.unlikePost} onClick={() => handleTogglePostLike(post._id)}>
-            <InteractBtn message={"Unlike"} svg={"liked_filled.svg"} />
+            <InteractBtn message={"Unlike"} svg={<LikeFilledSVG />} />
           </div>
         }
 
-        <div className={styles.comment}>
-          <InteractBtn message={"Comment"} svg={"comment.svg"} />
+        <div className={styles.comment} onClick={() => handleGetComments(post._id)}>
+          <InteractBtn message={"Comment"} svg={<CommentSVG />} />
         </div>
+
+        {
+          postState.comment &&
+          <div className={styles.commentContainer} onClick={handleResetComment}>
+
+            <div className={styles.commentsWrapper} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.closeCommentBoxBtn} onClick={handleResetComment}>
+                <InteractBtn svg={<CloseSVG />} />
+              </div>
+
+              {
+                postState.isLoading ?
+                  <h2>Fetching Comments...</h2>
+                  :
+                  <Comment userId={userId} postId={postState.postId} comments={postState.comment} />
+              }
+
+            </div>
+          </div>
+        }
       </div>
     </>
   );

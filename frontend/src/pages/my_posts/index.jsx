@@ -29,17 +29,17 @@ export default function index() {
   }, []);
 
   useEffect(() => {
-    if (authState.user) {
+    if (localStorage.getItem("token")) {
       dispatch(getUserPosts());
     }
-  }, [authState.user]);
+  }, []);
 
   const handleDeletePost = async (postId) => {
     await dispatch(deletePost({ postId: postId })).unwrap();
 
     setTimeout(() => {
       dispatch(getUserPosts()).unwrap();
-    }, 2000);
+    }, 1000);
   }
 
   const handleArchivePost = async (postId) => {
@@ -47,7 +47,11 @@ export default function index() {
 
     setTimeout(() => {
       dispatch(getUserPosts()).unwrap();
-    }, 2000);
+    }, 1000);
+  }
+
+  const handleEditPost = async (postId) => {
+    console.log(postId);
   }
 
   return (
@@ -71,27 +75,32 @@ export default function index() {
 
           {
             Array.isArray(postState.posts) && postState.posts.length === 0 &&
-            <p className={styles.noPosts}>No posts to show...</p>
+            <h1 className={styles.noPosts}>No posts to show...</h1>
           }
 
           {authState.user &&
             postState.posts?.map((p) => {
               return (
-                <span key={p._id}>
+                <div key={p._id}>
                   <Post userId={authState.user._id} post={p} />
 
                   {(p.userId._id === authState.user._id)
                     &&
                     <div className={styles.userPostActions}>
-                      {
-                        (!p.archived) ?
-                          <button type="button" className={actionBtnStyle.button} onClick={() => handleArchivePost(p._id)}>
-                            Archive Post
-                          </button>
-                          :
-                          <button type="button" className={actionBtnStyle.button} onClick={() => handleArchivePost(p._id)}>
-                            Unarchive Post
-                          </button>
+
+                      <button type='button' className={actionBtnStyle.button} onClick={() => handleEditPost(p._id)}>
+                        Edit Post
+                      </button>
+
+                      { 
+                      (!p.archived) ?
+                      <button type="button" className={actionBtnStyle.button} onClick={() => handleArchivePost(p._id)}>
+                        Archive Post
+                      </button>
+                      :
+                      <button type="button" className={actionBtnStyle.button} onClick={() => handleArchivePost(p._id)}>
+                        Unarchive Post
+                      </button>
                       }
 
                       <button type='button' className={actionBtnStyle.button} onClick={() => handleDeletePost(p._id)}>
@@ -99,7 +108,7 @@ export default function index() {
                       </button>
                     </div>
                   }
-                </span>
+                </div>
               );
             })
           }

@@ -5,6 +5,8 @@ import { getUserPosts } from "../../action/postAction/getUserPosts";
 import { deletePost } from "../../action/postAction/deletePost";
 import { toggleArchivePost } from "../../action/postAction/toggleArchivePost";
 import { toggleLikePost } from "../../action/postAction/toggleLikePost";
+import { getComments } from "../../action/postAction/getComments";
+import { postComment } from "../../action/postAction/postComment";
 
 const initialState = {
     loggedIn: false,
@@ -13,8 +15,8 @@ const initialState = {
     isLoading: false,
     postFetched: false,
     message: "",
-    posts: [],
-    comment: [],
+    posts: undefined,
+    comment: undefined,
     postId: ""
 }
 
@@ -23,8 +25,9 @@ const postSlice = createSlice({
     initialState,
     reducers: {
         reset: () => initialState,
-        resetPostId: (state) => {
-            state.postId = ""
+        resetComment: (state) => {
+            state.comment = undefined;
+            state.postId = "";
         },
     },
     extraReducers: (builder) => {
@@ -128,9 +131,42 @@ const postSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
+            .addCase(getComments.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Wait while fetching the comments...";
+            })
+            .addCase(getComments.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+                state.postId = action.payload.postId;
+                state.comment = action.payload.comments;
+            })
+            .addCase(getComments.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(postComment.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Wait while posting the comments...";
+            })
+            .addCase(postComment.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+                state.message = action.payload;
+            })
+            .addCase(postComment.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
     }
 });
 
-export const { reset, resetPostId } = postSlice.actions;
+export const { reset, resetComment } = postSlice.actions;
 
 export default postSlice.reducer;

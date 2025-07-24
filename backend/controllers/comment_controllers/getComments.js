@@ -44,5 +44,5 @@ export const getComments = async (req, res) => {
         }
     });
 
-    return res.status(200).json(roots);
+    return res.status(200).json({ postId: postId, comments: roots});
 };

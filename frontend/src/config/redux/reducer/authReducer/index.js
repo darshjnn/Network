@@ -14,8 +14,8 @@ const initialState = {
     message: "",
     userFetched: false,
     profileFetched: false,
-    connections: [],
-    connectioRequest: []
+    connections: undefined,
+    connectioRequest: undefined
 }
 
 const authSlice = createSlice({

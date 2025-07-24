@@ -6,3 +6,9 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+
+@media (max-width: 650px) {
+    .feedBody {
+        width: 100%;
+    }
+}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import styles from "./style.module.css";
 
+import CloseSVG from "@/svg/close.svg";
+
 export default function TextSuccess({ message }) {
   const [showText, setShowText] = useState(true);
 
@@ -22,10 +24,12 @@ export default function TextSuccess({ message }) {
         < div className={styles.textWrapper} >
           <p className={styles.text}>{message}</p>
 
-          {<button type="button" className={styles.closeButton} onClick={handleCloseText}>
+          {
+            <button type="button" className={styles.closeButton} onClick={handleCloseText}>
 
-            <img src="svg/close.svg" alt="close" />
-          </button>}
+              <CloseSVG />
+            </button>
+          }
         </div >
       }
     </>

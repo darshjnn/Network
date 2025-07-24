@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 
-.routeHome>p {
+.routeHome>span {
     font-family: "Delius", cursive;
     color: #F7F6F7;
     font-weight: 500;
@@ -101,13 +101,31 @@
 }
 
 @media (max-width: 600px) {
-    .navbarMiddle>button>p {
+    .navbarMiddle>button>span {
         display: none;
     }
 }
 
 @media (max-width: 480px) {
     .userImg {
+        display: none;
+    }
+
+    .logoutBtn>button {
+        white-space: nowrap;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logoutBtn>button {
+        white-space: wrap;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbarMiddle>button:nth-child(2) {
         display: none;
     }
 }

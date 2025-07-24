@@ -52,3 +52,18 @@
 .mainContainerRightImg {
     height: 30rem;
 }
+
+@media (max-width: 500px) {
+    .mainContainerLeft {
+        flex: 1;
+        justify-self: center;
+    }
+
+    .mainContainerRight {
+        flex: 0;
+    }
+
+    .mainContainerRightImg {
+        display: none;
+    }
+}

@@ -34,7 +34,7 @@
     align-items: flex-end;
 }
 
-.userInfo>p:nth-child(2) {
+.userInfo>span:nth-child(2) {
     color: grey;
     font-size: small;
 }
@@ -63,6 +63,11 @@
     padding: 3px 10px;
 }
 
+.postFooter {
+    font-size: 0.8em;
+    padding-top: 0.3rem;
+}
+
 .postActions {
     margin: 0;
     width: 85%;
@@ -76,6 +81,12 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    transition: all 0.2s ease;
+}
+
+.postActions:hover {
+    background-color: rgba(128, 128, 128, 0.658);
+    transition: all 0.2s ease;
 }
 
 .postActions>div>button {
@@ -83,9 +94,41 @@
     padding-inline: 1rem;
 }
 
-.postFooter {
-    font-size: smaller;
-    padding-top: 0.3rem;
+.commentContainer {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.commentsWrapper {
+    margin: auto;
+    width: 50vw;
+    height: 85vh;
+    background: oldlace;
+    position: relative;
+    border-radius: 15px;
+    padding: 0.5rem;
+    color: black;
+}
+
+.closeCommentBoxBtn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+}
+
+@media (max-width: 950px) {
+    .commentsWrapper {
+        width: 65vw;
+    }
 }
 
 @media (max-width: 600px) {
@@ -95,5 +138,15 @@
 
     .postActions {
         width: 100%;
+    }
+
+    .commentsWrapper {
+        width: 75vw;
+    }
+}
+
+@media (max-width: 350px) {
+    .postActions>div>button>span {
+        display: none;
     }
 }

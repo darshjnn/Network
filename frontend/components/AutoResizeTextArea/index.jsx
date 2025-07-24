@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import styles from "./style.module.css";
 
-export default function index({ name, id, value, onChange, placeholder }) {
+export default function AutoResizeTextArea({ name, id, value, onChange, placeholder }) {
     const textareaRef = useRef(null);
 
     const handleInput = (e) => {

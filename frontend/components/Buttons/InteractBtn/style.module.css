@@ -21,7 +21,7 @@
     scale: 1.03;
 }
 
-.button>p {
+.button>span {
     margin: 0;
     padding: 0;
 }

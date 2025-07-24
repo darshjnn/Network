@@ -13,6 +13,10 @@ import { toggleLikeComment } from "../controllers/like_controllers/toggleLikeCom
 
 const router = Router();
 
+// Get Comments along with their replies
+router.route('/comments')
+    .post(isLoggedIn, wrapAsync(getComments));
+
 // Comment on a Post
 router.route('/post_comment')
     .post(isLoggedIn, wrapAsync(postComment));
@@ -24,10 +28,6 @@ router.route('/edit_comment')
 // Delete Comment
 router.route('/delete_comment')
     .post(isLoggedIn, wrapAsync(deleteComment));
-
-// Get Comments along with their replies
-router.route('/comments')
-    .get(wrapAsync(getComments));
 
 // Reply to a Comment
 router.route('/reply_comment')

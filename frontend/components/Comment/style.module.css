@@ -1,0 +1,109 @@
+.postComments {
+    font-size: 0.8rem;
+    max-height: 90%;
+    overflow: auto;
+    overflow-y: auto;
+    scrollbar-width: thin; 
+}
+
+.postComments>h2 {
+    align-self: center;
+}
+
+.addCommentContainer {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0.1rem;
+}
+
+.addCommentContainer>textarea {
+    flex: 1;
+    height: 3rem;
+}
+
+.commentItemParent {
+    padding-bottom: 0.5rem;
+    border-left: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.commentItem {
+    margin-left: 0.5rem;
+    margin-top: 0.8rem;
+    padding-top: 0.3rem;
+    padding-left: 1rem;
+}
+
+.commentHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profilePic {
+    width: auto;
+    height: 30px;
+    max-width: 30px;
+    object-fit: contain;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.name {
+    font-size: 0.4rem;
+    font-weight: bold;
+}
+
+.username {
+    color: #888;
+    font-size: 0.4em;
+}
+
+.commentBody {
+    margin: 0.5rem 0;
+}
+
+.commentMeta {
+    font-size: 0.8em;
+    color: #888;
+    display: flex;
+    gap: 1rem;
+}
+
+.commentActions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.commentActions>span {
+    color: slategray;
+}
+
+.commentActions>div>button {
+    color: slategray;
+    font-size: 0.6rem;
+    padding-top: 0.4rem;
+    padding-inline: 0.4rem;
+}
+
+.commentActions>div>button>svg {
+    height: 18px;
+}
+
+.commentActions>div>button>svg>path {
+    fill: slategray;
+}
+
+.replies {
+    margin-left: 0.5rem;
+    border-left: 1.5px solid #ddd;
+    border-bottom-left-radius: 15px;
+}
