@@ -9,6 +9,32 @@
 
 .feedMainContainer>div:nth-child(odd) {
     flex: 0.3;
+    align-items: center;
+}
+
+.userContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.userActivity {
+    width: 80%;
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    border-radius: 0.6rem;
+    transition: all 0.2s ease;
+}
+
+.userActivity:hover {
+    background: rgba(245, 245, 245, 0.26);
+    transition: all 0.2s ease;
+}
+
+.userActivity>h3 {
+    text-align: center;
+    margin-bottom: 0.5rem;
 }
 
 .feedMainContainer>div:nth-child(even) {

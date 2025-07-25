@@ -12,11 +12,18 @@ export default function index({ children }) {
     <div className={styles.feedMainContainer}>
 
       <div className={styles.userContainer}>
-        <p>User Profile</p>
+        <span>User Profile</span>
 
-        <ActionBtn message={"My Posts"} route={"/my_posts"} />
+        <div className={styles.userActivity}>
+          <h3>My Activity</h3>
 
-        <ActionBtn message={"All Posts"} route={"/feed"} />
+          <ActionBtn message={"My Posts"} route={"/my_posts"} />
+
+          <ActionBtn message={"My Comments"} />
+
+          <ActionBtn message={"My Likes"} />
+        </div>
+
       </div>
 
       <div className={styles.feedContainer}>

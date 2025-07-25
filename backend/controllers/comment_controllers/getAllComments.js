@@ -2,7 +2,7 @@ import { Comment } from "../../models/comments.model.js";
 import { Post } from "../../models/posts.model.js";
 
 // Get Comments along with their replies
-export const getComments = async (req, res) => {
+export const getAllComments = async (req, res) => {
     const { postId } = req.body;
 
     if (!postId) {

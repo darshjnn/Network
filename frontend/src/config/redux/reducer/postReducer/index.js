@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPosts } from "../../action/postAction/getPosts";
+import { getAllPosts } from "../../action/postAction/getAllPosts";
 import { createPost } from "../../action/postAction/createPost";
 import { getUserPosts } from "../../action/postAction/getUserPosts";
 import { deletePost } from "../../action/postAction/deletePost";
 import { toggleArchivePost } from "../../action/postAction/toggleArchivePost";
-import { toggleLikePost } from "../../action/postAction/toggleLikePost";
-import { getComments } from "../../action/postAction/getComments";
+import { getAllComments } from "../../action/postAction/getAllComments";
 import { postComment } from "../../action/postAction/postComment";
+import { postReply } from "../../action/postAction/postReply";
 
 const initialState = {
     loggedIn: false,
@@ -32,18 +32,18 @@ const postSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getPosts.pending, (state) => {
+            .addCase(getAllPosts.pending, (state) => {
                 state.isLoading = true;
                 state.message = "Fetching Posts...";
             })
-            .addCase(getPosts.fulfilled, (state, action) => {
+            .addCase(getAllPosts.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
                 state.postFetched = true;
                 state.posts = action.payload;
             })
-            .addCase(getPosts.rejected, (state, action) => {
+            .addCase(getAllPosts.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;
@@ -75,7 +75,7 @@ const postSlice = createSlice({
                 state.isSuccess = true;
                 state.isError = false;
                 state.postFetched = true;
-                state.message = action.payload
+                state.message = action.payload;
             })
             .addCase(createPost.rejected, (state) => {
                 state.isLoading = false;
@@ -115,34 +115,18 @@ const postSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
-            .addCase(toggleLikePost.pending, (state) => {
-                state.isLoading = true;
-                state.message = "Wait while liking the post...";
-            })
-            .addCase(toggleLikePost.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.isError = false;
-                state.message = action.payload;
-            })
-            .addCase(toggleLikePost.rejected, (state) => {
-                state.isLoading = false;
-                state.isSuccess = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
-            .addCase(getComments.pending, (state) => {
+            .addCase(getAllComments.pending, (state) => {
                 state.isLoading = true;
                 state.message = "Wait while fetching the comments...";
             })
-            .addCase(getComments.fulfilled, (state, action) => {
+            .addCase(getAllComments.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.isError = false;
                 state.postId = action.payload.postId;
                 state.comment = action.payload.comments;
             })
-            .addCase(getComments.rejected, (state, action) => {
+            .addCase(getAllComments.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;
@@ -159,6 +143,22 @@ const postSlice = createSlice({
                 state.message = action.payload;
             })
             .addCase(postComment.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(postReply.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Wait while posting the reply...";
+            })
+            .addCase(postReply.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+                state.message = action.payload;
+            })
+            .addCase(postReply.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;

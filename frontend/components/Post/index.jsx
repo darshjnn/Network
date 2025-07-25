@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getPosts } from '@/config/redux/action/postAction/getPosts';
 import { toggleLikePost } from '@/config/redux/action/postAction/toggleLikePost';
-import { getComments } from '@/config/redux/action/postAction/getComments';
+import { getAllComments } from '@/config/redux/action/postAction/getAllComments';
 
 import { resetComment } from '@/config/redux/reducer/postReducer';
 
@@ -19,17 +18,31 @@ import CloseSVG from "@/svg/close.svg";
 
 import { BASE_URL } from '@/config';
 
-export default function Post({ userId, post_Id, post }) {
+export default function Post({ userId, post }) {
   const postState = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
+  const [isPostLiked, setIsPostLiked] = useState(post.likedBy.includes(userId));
+  const [postLikeCount, setPostLikeCount] = useState(post.likes);
+
   const handleTogglePostLike = async (postId) => {
-    await dispatch(toggleLikePost({ postId: postId })).unwrap();
-    await dispatch(getPosts()).unwrap();
+    try {
+      await dispatch(toggleLikePost({ postId: postId })).unwrap();
+      setIsPostLiked(prev => !prev);
+
+      if (!isPostLiked) {
+        setPostLikeCount(prev => prev + 1);
+      } else {
+        setPostLikeCount(prev => prev - 1);
+      }
+
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const handleGetComments = async (postId) => {
-    await dispatch(getComments({ postId: postId })).unwrap();
+    await dispatch(getAllComments({ postId: postId })).unwrap();
   }
 
   const handleResetComment = () => {
@@ -72,21 +85,17 @@ export default function Post({ userId, post_Id, post }) {
       </div>
 
       <div className={styles.postActions}>
-        <span className="likes">
-          Likes: {post.likes}
-        </span>
-        {
-          !post.likedBy.includes(userId) &&
-          <div className={styles.likePost} onClick={() => handleTogglePostLike(post._id)}>
-            <InteractBtn message={"Like"} svg={<LikeSVG />} />
-          </div>
-        }
+        <span className="likes">Likes: {postLikeCount}</span>
 
         {
-          post.likedBy.includes(userId) &&
-          <div className={styles.unlikePost} onClick={() => handleTogglePostLike(post._id)}>
-            <InteractBtn message={"Unlike"} svg={<LikeFilledSVG />} />
-          </div>
+          isPostLiked ?
+            <div className={styles.unlikePost} onClick={() => handleTogglePostLike(post._id)}>
+              <InteractBtn message={"Unlike"} svg={<LikeFilledSVG />} />
+            </div>
+            :
+            <div className={styles.likePost} onClick={() => handleTogglePostLike(post._id)}>
+              <InteractBtn message={"Like"} svg={<LikeSVG />} />
+            </div>
         }
 
         <div className={styles.comment} onClick={() => handleGetComments(post._id)}>

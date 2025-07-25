@@ -1,7 +1,7 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getComments = createAsyncThunk(
+export const getAllComments = createAsyncThunk(
     "posts/comments",
     async (post, thunkApi) => {
         try {

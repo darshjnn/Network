@@ -26,7 +26,6 @@ export default function TextSuccess({ message }) {
 
           {
             <button type="button" className={styles.closeButton} onClick={handleCloseText}>
-
               <CloseSVG />
             </button>
           }

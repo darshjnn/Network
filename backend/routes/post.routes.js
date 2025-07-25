@@ -9,6 +9,7 @@ import { isLoggedIn } from "../middlewares/authentication/isLoggedIn.js";
 import { createPost } from "../controllers/post_controllers/createPost.js";
 import { editPost } from "../controllers/post_controllers/editPost.js";
 import { getAllPosts } from "../controllers/post_controllers/getAllPosts.js";
+import { getPost } from "../controllers/post_controllers/getPost.js";
 import { userPosts } from "../controllers/post_controllers/userPosts.js";
 import { deletePost } from "../controllers/post_controllers/deletePost.js";
 import { toggleArchivePost } from "../controllers/post_controllers/toggleArchivePost.js";
@@ -30,9 +31,13 @@ const upload = multer({
     storage: storage
 }).single('media');
 
-// Get all Posts (only the post which are not archived and not active are to be fetched)
+// Get all Posts (only the post which are not archived and active are to be fetched)
 router.route('/')
     .post(isLoggedIn, wrapAsync(getAllPosts));
+
+// Get the Post from its "_id" (only the post which is not archived and active is to be fetched)
+router.route('/get_post')
+    .post(isLoggedIn, wrapAsync(getPost));
 
 // Create Post
 router.route('/create_post')

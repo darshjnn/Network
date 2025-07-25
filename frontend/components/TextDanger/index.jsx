@@ -26,7 +26,6 @@ export default function TextDanger({ message }) {
 
           {
             <button type="button" className={styles.closeButton} onClick={handleCloseText}>
-
               <CloseSVG />
             </button>
           }

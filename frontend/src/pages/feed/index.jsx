@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { currentUser } from '@/config/redux/action/authAction/currentUser';
-import { getPosts } from '@/config/redux/action/postAction/getPosts';
+import { getAllPosts } from '@/config/redux/action/postAction/getAllPosts';
 
 import styles from "./style.module.css";
 
@@ -26,7 +25,7 @@ export default function index() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      dispatch(getPosts());
+      dispatch(getAllPosts());
     }
   }, []);
 

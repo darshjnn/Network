@@ -6,7 +6,7 @@ import { isLoggedIn } from "../middlewares/authentication/isLoggedIn.js";
 
 import { postComment } from "../controllers/comment_controllers/postComment.js";
 import { editComment } from "../controllers/comment_controllers/editComment.js";
-import { getComments } from "../controllers/comment_controllers/getComments.js";
+import { getAllComments } from "../controllers/comment_controllers/getAllComments.js";
 import { postReply } from "../controllers/comment_controllers/postReply.js";
 import { deleteComment } from "../controllers/comment_controllers/deleteComment.js";
 import { toggleLikeComment } from "../controllers/like_controllers/toggleLikeComment.js";
@@ -15,7 +15,7 @@ const router = Router();
 
 // Get Comments along with their replies
 router.route('/comments')
-    .post(isLoggedIn, wrapAsync(getComments));
+    .post(isLoggedIn, wrapAsync(getAllComments));
 
 // Comment on a Post
 router.route('/post_comment')

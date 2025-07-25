@@ -6,7 +6,7 @@ export const getAllPosts = async (req, res) => {
         .populate('userId', 'username name profilePicture').sort({ 'updatedAt': -1 });
 
     if (!posts) {
-        return res.status(400).json({ message: "Could not fetch posts..." });
+        return res.status(400).json({ message: "Could not fetch Posts..." });
     }
 
     return res.status(200).json(posts);
