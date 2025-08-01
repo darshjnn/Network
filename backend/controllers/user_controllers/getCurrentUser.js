@@ -5,7 +5,7 @@ export const getCurrentUser = async (req, res) => {
     const { token } = req.body;
 
     const user = await User.findOne({ token: token })
-        .select('_id name email profilePicture createdAt active blocked');
+        .select('_id name email username profilePicture createdAt active blocked');
 
     return res.status(200).json(user);
 };

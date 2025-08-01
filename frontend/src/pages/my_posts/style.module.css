@@ -11,33 +11,3 @@
     text-align: center;
     font-size: larger;
 }
-
-.userPostActions {
-    width: 85%;
-    padding-block: 0.3rem;
-    padding-right: 1rem;
-    justify-self: center;
-    background-color: rgba(128, 128, 128, 0.527);
-    border: 1.2px solid rgba(0, 0, 0, 0.466);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 0.6rem;
-    transition: all 0.2s ease;
-}
-
-.userPostActions:hover {
-    background-color: rgba(128, 128, 128, 0.658);
-    transition: all 0.2s ease;
-}
-
-.userPostActions>button {
-    font-size: 0.9rem;
-}
-
-@media (max-width: 600px) {
-    .userPostActions {
-        width: 100%;
-    }
-}

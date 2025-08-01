@@ -13,6 +13,7 @@ import { logout } from '../controllers/user_controllers/logout.js';
 import { updateUser } from '../controllers/user_controllers/updateUser.js';
 import { getCurrentUser } from '../controllers/user_controllers/getCurrentUser.js';
 import { uploadProfilePic } from '../controllers/user_controllers/uploadProfilePic.js';
+import { getUser } from "../controllers/user_controllers/getUser.js";
 
 const router = Router();
 
@@ -70,5 +71,9 @@ router.route('/update_profile_picture')
 // Update User Details(name, username, email)
 router.route('/update_user')
     .post(isLoggedIn, wrapAsync(updateUser));
+
+// Fetch User from username
+router.route('/user')
+    .post(isLoggedIn, wrapAsync(getUser));
 
 export default router;

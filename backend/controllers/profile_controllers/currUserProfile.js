@@ -1,8 +1,8 @@
 import { Profile } from "../../models/profile.model.js";
 import { User } from "../../models/user.model.js";
 
-// Fetch User Profile
-export const getUserProfile = async (req, res) => {
+// Fetch Current User Profile
+export const currUserProfile = async (req, res) => {
     const { token } = req.body;
 
     const user = await User.findOne({ token: token, active: true, blocked: false });
@@ -11,4 +11,4 @@ export const getUserProfile = async (req, res) => {
         .populate('userId', 'username name email profilePicture');
 
     return res.status(200).json({ userProfile });
-};
+}

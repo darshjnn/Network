@@ -1,6 +1,5 @@
 .body {
     width: 100%;
-    background: -webkit-linear-gradient(-45deg, #FFA3A580, #F686BD30, #BDE0FE50);
     display: flex;
     padding: 1rem;
     flex-direction: row;
@@ -26,7 +25,8 @@
     justify-content: center;
 }
 
-.containerLeft>p, .containerLeft>label {
+.containerLeft>p,
+.containerLeft>label {
     align-self: center;
 }
 
@@ -49,6 +49,12 @@
 .containerLeft>input:focus {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     transform: scale(1.05);
+}
+
+.containerLeft>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .containerRightImg {

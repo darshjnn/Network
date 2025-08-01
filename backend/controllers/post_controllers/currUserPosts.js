@@ -2,10 +2,11 @@ import { User } from "../../models/user.model.js"
 import { Post } from "../../models/posts.model.js";
 
 // Get all the Posts posted by the current User
-export const userPosts = async (req, res) => {
+export const currUserPosts = async (req, res) => {
     const { token } = req.body;
 
     const user = await User.findOne({ token: token, active: true, blocked: false });
+
     const posts = await Post.find({ userId: user._id })
         .populate('userId', 'username name profilePicture').sort({ 'createdAt': -1 });
 

@@ -1,11 +1,12 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getUserPosts = createAsyncThunk(
-    "posts/user_posts",
+// Get Posts of Current User
+export const getCurrUserPosts = createAsyncThunk(
+    "posts/my_posts",
     async (user, thunkApi) => {
         try {
-            const response = await clientServer.post("/posts/user_posts", {
+            const response = await clientServer.post("/posts/my_posts", {
                 token: localStorage.getItem("token")
             });
 

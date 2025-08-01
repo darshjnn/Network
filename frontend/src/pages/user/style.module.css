@@ -1,0 +1,159 @@
+@font-face {
+    font-family: "Delius";
+    src: url("../../../public/fonts/Delius.ttf");
+}
+
+.body {
+    width: 100%;
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.userProfile {
+    flex: 0.3;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.userActions {
+    width: 80%;
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    border-radius: 0.6rem;
+    transition: all 0.2s ease;
+}
+
+.userActions:hover {
+    background: rgba(245, 245, 245, 0.26);
+    transition: all 0.2s ease;
+}
+
+.userActions>h3 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.userContainer {
+    flex: 0.7;
+}
+
+.backdropContainer {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    background-color: black;
+    border-radius: 1.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.backdropContainer>svg {
+    width: 3rem;
+    height: 3rem;
+}
+
+.backdropContainer>h2 {
+    font-size: 3rem;
+    font-family: "Delius", cursive;
+    color: azure;
+}
+
+.userImgContainer {
+    padding: 0.4rem;
+    background: black;
+    position: absolute;
+    bottom: -40%;
+    left: 5%;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+.userImgContainer>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: fill;
+}
+
+.userDetails {
+    padding-top: 3.5rem;
+}
+
+.userDetailsHeader {
+    padding-bottom: 1rem;
+    font-size: larger;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.userDetailsHeader>span {
+    color: grey;
+    font-size: large;
+}
+
+.userDetailsHeader>div>button {
+    font-size: 0.9em;
+    padding: 0.4rem 1rem;
+}
+
+.userDetailsBody {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.userAboutContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.userAboutContainer>div {
+    flex-basis: 50%;
+}
+
+.userBio,
+.userCurrentPost,
+.userEducation,
+.userExperience {
+    width: 100%;
+    background: rgba(245, 245, 245, 0.414);
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: 0.5rem;
+}
+
+.userDetailsBody div ul {
+    padding-left: 1.2rem;
+}
+
+.userPostContainer {
+    padding-top: 1rem;
+    justify-self: center;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (max-width: 650px) {
+    .userPostContainer {
+        width: 100%;
+    }
+}

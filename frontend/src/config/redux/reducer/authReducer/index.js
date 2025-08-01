@@ -26,7 +26,7 @@ const authSlice = createSlice({
         handleUserLogin: (state) => {
             state.message = "What's upp!!!";
         },
-        clearMessage: (state) => {
+        clearAuthMessage: (state) => {
             state.message = "";
         }
     },
@@ -98,6 +98,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { reset, handleUserLogin, clearMessage } = authSlice.actions;
+export const { reset, handleUserLogin, clearAuthMessage } = authSlice.actions;
 
 export default authSlice.reducer;

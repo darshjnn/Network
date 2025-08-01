@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { toggleLikePost } from '@/config/redux/action/postAction/toggleLikePost';
@@ -8,6 +10,7 @@ import { resetComment } from '@/config/redux/reducer/postReducer';
 
 import styles from "./style.module.css";
 
+import UserImage from '../UserImage';
 import InteractBtn from "../Buttons/InteractBtn";
 import Comment from "../Comment";
 
@@ -57,12 +60,14 @@ export default function Post({ userId, post }) {
         }
 
         <div className={styles.postHeader}>
-          <img src={`${BASE_URL}/uploads/profile_pictures/${post.userId.profilePicture}`} alt={post.userId.username} className={styles.userImg} />
+          <UserImage src={`${BASE_URL}/uploads/profile_pictures/${post.userId.profilePicture}`} />
 
-          <div className={styles.userInfo}>
-            <span><b>{post.userId.name}</b></span>
-            <span>@{post.userId.username}</span>
-          </div>
+          <Link href={`user/${post.userId.username}`}>
+            <div className={styles.userInfo}>
+              <span><b>{post.userId.name}</b></span>
+              <span>@{post.userId.username}</span>
+            </div>
+          </Link>
         </div>
 
         <div className={styles.postContent}>

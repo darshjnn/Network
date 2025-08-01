@@ -9,3 +9,17 @@
   box-sizing: border-box;
   font-family: "Nokora", sans-serif;
 }
+
+body {
+  /* background: #2C2C2C; */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  user-select: none;
+}
+
+a:focus {
+  outline: none;
+}

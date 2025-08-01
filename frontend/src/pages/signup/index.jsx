@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
@@ -12,7 +14,7 @@ import TextDanger from "../../../components/TextDanger";
 
 import { loginUser } from '@/config/redux/action/authAction/loginUser';
 import { registerUser } from '@/config/redux/action/authAction/registerUser';
-import { clearMessage } from '@/config/redux/reducer/authReducer';
+import { clearAuthMessage } from '@/config/redux/reducer/authReducer';
 
 export default function SignUpComponent() {
   const authState = useSelector((state) => state.auth);
@@ -21,7 +23,7 @@ export default function SignUpComponent() {
 
   // Clear auth message on mount
   useEffect(() => {
-    dispatch(clearMessage());
+    dispatch(clearAuthMessage());
   }, []);
 
   // Handle Form Input
@@ -41,14 +43,20 @@ export default function SignUpComponent() {
     });
   }
 
+  const [error, setError] = useState();
+
   // Handling Register
   const handleRegister = () => {
-    dispatch(registerUser({
-      name: formInp.inpName,
-      username: formInp.inpUsername,
-      email: formInp.inpEmail,
-      password: formInp.password
-    }));
+    if (Object.values(formInp).some(value => value === "" || value === null || !value)) {
+      setError("All fields are must!");
+    } else {
+      dispatch(registerUser({
+        name: formInp.inpName,
+        username: formInp.inpUsername,
+        email: formInp.inpEmail,
+        password: formInp.password
+      }));
+    }
   }
 
   // Handle Login after User is registered successfully
@@ -70,6 +78,15 @@ export default function SignUpComponent() {
       </title>
 
       <div className={styles.body}>
+        {error && <TextDanger onClose={() => setError()} message={error} />}
+
+        {
+          authState.message.message ?
+            <TextDanger message={authState.message.message} />
+            :
+            <></>
+        }
+
         <div className={styles.container}>
 
           <div className={styles.containerLeft}>
@@ -77,12 +94,6 @@ export default function SignUpComponent() {
           </div>
 
           <div className={styles.containerRight}>
-            {
-              authState.message.message ?
-                <TextDanger message={authState.message.message} />
-                :
-                <></>
-            }
 
             <br />
 
@@ -106,11 +117,15 @@ export default function SignUpComponent() {
 
             <br />
 
-            <button className={buttonStyle.button} onClick={handleRegister}>
-              Create your room!
-            </button>
+            <div>
+              <button className={buttonStyle.button} onClick={handleRegister}>
+                Create your room!
+              </button>
 
-            <ActionBtn message={"Knock the door? Login!"} route={"/login"} />
+              <Link href={"/login"}>
+                <ActionBtn message={"Knock the door? Login!"} />
+              </Link>
+            </div>
           </div>
 
         </div>

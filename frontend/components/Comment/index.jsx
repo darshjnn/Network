@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllComments } from '@/config/redux/action/postAction/getAllComments';
@@ -7,6 +9,7 @@ import { toggleLikeComment } from '@/config/redux/action/postAction/toggleLikeCo
 
 import styles from "./style.module.css";
 
+import UserImage from '../UserImage';
 import InteractBtn from "../Buttons/InteractBtn";
 import ActionBtn from '../Buttons/ActionBtn';
 import AutoResizeTextArea from "../AutoResizeTextArea";
@@ -51,12 +54,14 @@ function CommentItem({ userId, postId, comment }) {
   return (
     <div className={styles.commentItem}>
       <div className={styles.commentHeader}>
-        <img src={`${BASE_URL}/uploads/profile_pictures/${comment.userId.profilePicture}`} alt={comment.userId.username} className={styles.profilePic} />
+        <UserImage src={`${BASE_URL}/uploads/profile_pictures/${comment.userId.profilePicture}`} />
 
-        <div className={styles.userInfo}>
-          <p><b>{comment.userId.name}</b></p>
-          <p>@{comment.userId.username}</p>
-        </div>
+        <Link href={`user/${comment.userId.username}`} >
+          <div className={styles.userInfo}>
+            <p><b>{comment.userId.name}</b></p>
+            <p>@{comment.userId.username}</p>
+          </div>
+        </Link>
       </div>
 
       <div className={styles.commentBody}>
@@ -125,7 +130,11 @@ export default function Comment({ userId, postId, comments }) {
     <div className={styles.postComments}>
 
       {postState.isError && <TextDanger message={postState.message.message} />}
-      {postState.message.message && !postState.isError && <TextSuccess message={postState.message.message} />}
+
+      {
+        postState.message.message && !postState.isError &&
+        <TextSuccess message={postState.message.message} />
+      }
 
       {
         (!comments || comments.length === 0) ?

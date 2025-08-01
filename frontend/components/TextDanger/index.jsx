@@ -4,17 +4,27 @@ import styles from "./style.module.css";
 
 import CloseSVG from "@/svg/close.svg";
 
-export default function TextDanger({ message }) {
+export default function TextDanger({ message, onClose }) {
   const [showText, setShowText] = useState(true);
 
   useEffect(() => {
     if (message) {
       setShowText(true);
+      const timer = setTimeout(() => {
+        setShowText(false);
+        if (onClose) {
+          onClose();
+        }
+      }, 2000);
+      return () => clearTimeout(timer);
     }
-  }, [message]);
+  }, [message, onClose]);
 
   const handleCloseText = () => {
     setShowText(false);
+    if (onClose) {
+      onClose();
+    }
   }
 
   return (
@@ -25,10 +35,12 @@ export default function TextDanger({ message }) {
           <p className={styles.text}>{message}</p>
 
           {
-            <button type="button" className={styles.closeButton} onClick={handleCloseText}>
+            <button type="button" className={styles.closeButton}
+              onClick={handleCloseText}>
               <CloseSVG />
             </button>
           }
+
         </div >
       }
     </>

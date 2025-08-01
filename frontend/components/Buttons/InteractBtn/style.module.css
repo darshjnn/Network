@@ -1,10 +1,12 @@
-.btn {
+.button {
+    text-align: center;
+    width: 100%;
     padding: 0.5rem 1rem 0.1rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     cursor: pointer;
     outline: none;
     user-select: none;
@@ -15,7 +17,7 @@
     transition: all 0.2s ease;
 }
 
-.btn:hover {
+.button:hover {
     transition: all 0.2s ease;
     background-color: rgba(245, 245, 220, 0.082);
     scale: 1.03;
@@ -24,4 +26,18 @@
 .button>span {
     margin: 0;
     padding: 0;
+    white-space: nowrap;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .button {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 768px) {
+    .button {
+        font-size: 0.6em;
+    }
 }

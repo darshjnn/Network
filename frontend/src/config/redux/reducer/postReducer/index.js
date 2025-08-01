@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllPosts } from "../../action/postAction/getAllPosts";
 import { createPost } from "../../action/postAction/createPost";
-import { getUserPosts } from "../../action/postAction/getUserPosts";
+import { getCurrUserPosts } from "../../action/postAction/getCurrUserPosts";
+import { getUsernamePosts } from "../../action/postAction/getUsernamePosts";
 import { deletePost } from "../../action/postAction/deletePost";
 import { toggleArchivePost } from "../../action/postAction/toggleArchivePost";
 import { getAllComments } from "../../action/postAction/getAllComments";
@@ -29,6 +30,9 @@ const postSlice = createSlice({
             state.comment = undefined;
             state.postId = "";
         },
+        clearPostMessage: (state) => {
+            state.message = "";
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -49,18 +53,35 @@ const postSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
-            .addCase(getUserPosts.pending, (state) => {
+            .addCase(getCurrUserPosts.pending, (state) => {
                 state.isLoading = true;
                 state.message = "Fetching Posts...";
             })
-            .addCase(getUserPosts.fulfilled, (state, action) => {
+            .addCase(getCurrUserPosts.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.isError = false;
                 state.postFetched = true;
                 state.posts = action.payload;
             })
-            .addCase(getUserPosts.rejected, (state) => {
+            .addCase(getCurrUserPosts.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getUsernamePosts.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Fetching Posts...";
+            })
+            .addCase(getUsernamePosts.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+                state.postFetched = true;
+                state.posts = action.payload;
+            })
+            .addCase(getUsernamePosts.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;
@@ -77,7 +98,7 @@ const postSlice = createSlice({
                 state.postFetched = true;
                 state.message = action.payload;
             })
-            .addCase(createPost.rejected, (state) => {
+            .addCase(createPost.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;
@@ -93,7 +114,7 @@ const postSlice = createSlice({
                 state.isError = false;
                 state.message = action.payload;
             })
-            .addCase(deletePost.rejected, (state) => {
+            .addCase(deletePost.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;
@@ -109,7 +130,7 @@ const postSlice = createSlice({
                 state.isError = false;
                 state.message = action.payload;
             })
-            .addCase(toggleArchivePost.rejected, (state) => {
+            .addCase(toggleArchivePost.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.isError = true;
@@ -167,6 +188,6 @@ const postSlice = createSlice({
     }
 });
 
-export const { reset, resetComment } = postSlice.actions;
+export const { reset, resetComment, clearPostMessage } = postSlice.actions;
 
 export default postSlice.reducer;

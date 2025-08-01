@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
+import Link from 'next/link';
 
 import styles from "./style.module.css";
 
 import ActionBtn from "../../../components/Buttons/ActionBtn";
 
-export default function index({ children }) {
-  const route = useRouter();
+export default function FeedLayout({ children }) {
 
   return (
     <div className={styles.feedMainContainer}>
@@ -17,11 +16,18 @@ export default function index({ children }) {
         <div className={styles.userActivity}>
           <h3>My Activity</h3>
 
-          <ActionBtn message={"My Posts"} route={"/my_posts"} />
+          <Link href={"/my_posts"}>
+            <ActionBtn message={"My Posts"} />
+          </Link>
 
-          <ActionBtn message={"My Comments"} />
+          <Link href={"/my_posts"}>
+            <ActionBtn message={"My Comments"} />
+          </Link>
 
-          <ActionBtn message={"My Likes"} />
+          <Link href={"/my_posts"}>
+            <ActionBtn message={"My Likes"} />
+          </Link>
+
         </div>
 
       </div>
@@ -29,7 +35,9 @@ export default function index({ children }) {
       <div className={styles.feedContainer}>
 
         <div className={styles.createPost}>
-          <ActionBtn message={"Share Your Thoughts. Create a new Post?"} route={"/post"} />
+          <Link href={"/post"}>
+            <ActionBtn message={"Share Your Thoughts. Create a new Post?"} />
+          </Link>
         </div>
 
         {children}

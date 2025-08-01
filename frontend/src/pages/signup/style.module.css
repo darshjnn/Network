@@ -1,6 +1,5 @@
 .body {
     width: 100%;
-    background: -webkit-linear-gradient(-45deg, #F197FF50, #3ED4D950, #5BFF9050);
     display: flex;
     padding: 1rem;
     flex-direction: row;
@@ -58,4 +57,10 @@
 .containerRight>input:focus {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     transform: scale(1.05);
+}
+
+.containerRight>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }

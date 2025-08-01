@@ -10,7 +10,8 @@ import { createPost } from "../controllers/post_controllers/createPost.js";
 import { editPost } from "../controllers/post_controllers/editPost.js";
 import { getAllPosts } from "../controllers/post_controllers/getAllPosts.js";
 import { getPost } from "../controllers/post_controllers/getPost.js";
-import { userPosts } from "../controllers/post_controllers/userPosts.js";
+import { currUserPosts } from "../controllers/post_controllers/currUserPosts.js";
+import { usernamePosts } from "../controllers/post_controllers/usernamePosts.js";
 import { deletePost } from "../controllers/post_controllers/deletePost.js";
 import { toggleArchivePost } from "../controllers/post_controllers/toggleArchivePost.js";
 import { toggleLikePost } from "../controllers/like_controllers/toggleLikePost.js";
@@ -48,8 +49,12 @@ router.route('/edit_post')
     .post(upload, wrapAsync(editPost));
 
 // Get all the Posts posted by the current user
+router.route('/my_posts')
+    .post(isLoggedIn, wrapAsync(currUserPosts));
+
+// Get all the Posts posted by any user
 router.route('/user_posts')
-    .post(isLoggedIn, wrapAsync(userPosts));
+    .post(isLoggedIn, wrapAsync(usernamePosts));
 
 // Delete Post
 router.route('/delete_post')

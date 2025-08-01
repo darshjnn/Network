@@ -1,0 +1,17 @@
+.userImageContainer {
+    height: 35px;
+    width: 35px;
+    padding: 0.1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userImageContainer>img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}

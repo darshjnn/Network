@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -11,7 +13,7 @@ import UserLayout from '@/layouts/UserLayout';
 import ActionBtn from '../../../components/Buttons/ActionBtn';
 import TextDanger from "../../../components/TextDanger";
 
-import { clearMessage } from '@/config/redux/reducer/authReducer';
+import { clearAuthMessage } from '@/config/redux/reducer/authReducer';
 import { loginUser } from '@/config/redux/action/authAction/loginUser';
 
 export default function LogInComponent() {
@@ -28,7 +30,7 @@ export default function LogInComponent() {
 
   // Clear auth message on mount
   useEffect(() => {
-    dispatch(clearMessage());
+    dispatch(clearAuthMessage());
   }, []);
 
   let handleFormInp = (event) => {
@@ -40,16 +42,22 @@ export default function LogInComponent() {
     });
   }
 
+  const [error, setError] = useState();
+
   // Handling Login
   const handleLogin = async () => {
     try {
-      await dispatch(loginUser({
-        username: formInp.inpUser,
-        email: formInp.inpUser,
-        password: formInp.password
-      })).unwrap();
+      if (Object.values(formInp).some(value => value === "" || value === null || !value)) {
+        setError("All fields are must!");
+      } else {
+        await dispatch(loginUser({
+          username: formInp.inpUser,
+          email: formInp.inpUser,
+          password: formInp.password
+        })).unwrap();
 
-      route.push("/feed");
+        route.push("/feed");
+      }
 
     } catch (error) {
       route.push("/login")
@@ -63,15 +71,17 @@ export default function LogInComponent() {
       </title>
 
       <div className={styles.body}>
+        {error && <TextDanger onClose={() => setError()} message={error} />}
+
+        {
+          (authState.isError && authState.message.message) &&
+          <TextDanger message={authState.message.message} />
+
+        }
+
         <div className={styles.container}>
 
           <div className={styles.containerLeft}>
-            {
-              (authState.isError && authState.message.message) && 
-                <TextDanger message={authState.message.message} />
-                
-            }
-
             <br />
 
             <label htmlFor="inpUser">Enter Username or Email: &nbsp;</label>
@@ -84,11 +94,15 @@ export default function LogInComponent() {
 
             <br />
 
-            <button className={buttonStyle.button} onClick={handleLogin}>
-              Knock Knock!
-            </button>
+            <div>
+              <button className={buttonStyle.button} onClick={handleLogin}>
+                Knock Knock!
+              </button>
 
-            <ActionBtn message={"Don't have a room? Register yourself!"} route={"/signup"} />
+              <Link href={"/signup"}>
+                <ActionBtn message={"Don't have a room? Register yourself!"} />
+              </Link>
+            </div>
 
           </div>
 
