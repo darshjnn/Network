@@ -17,14 +17,14 @@ router.route('/send_request')
 
 // Fetch Connection requests sent by others
 router.route('/get_requests')
-    .get(isLoggedIn, wrapAsync(getConnectionReq));
+    .post(isLoggedIn, wrapAsync(getConnectionReq));
 
 // Respond to Connection request(Accept, Reject) and Manage Connections (Delete connections)
-router.route('/manage_connections')
+router.route('/manage_connection')
     .post(isLoggedIn, wrapAsync(manageConnections));
 
-// Get Connection lists
-router.route('/my_connections')
-    .get(isLoggedIn, wrapAsync(getConnections));
+// Fetch current user's full connection list
+router.route('/connections_list')
+    .post(isLoggedIn, wrapAsync(getConnections));
 
 export default router;

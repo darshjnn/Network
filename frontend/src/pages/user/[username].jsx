@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsernamePosts } from '@/config/redux/action/postAction/getUsernamePosts';
+import { getConnections } from '@/config/redux/action/authAction/getConnections';
+import { sendConnectioReq } from '@/config/redux/action/authAction/sendConnectionReq';
+import { manageConnectionReq } from '@/config/redux/action/authAction/manageConnectionReq';
 
 import styles from "./style.module.css";
 
@@ -37,7 +40,13 @@ export default function User({ userProfile }) {
 
   useEffect(() => {
     if (localStorage.getItem("token") && username) {
-      dispatch(getUsernamePosts({ username: username }));
+      try {
+        dispatch(getUsernamePosts({ username: username }));
+        dispatch(getConnections());
+      } catch (error) {
+        console.error(error);
+        setError(error);
+      }
     }
   }, [username]);
 
@@ -52,7 +61,80 @@ export default function User({ userProfile }) {
     console.log("Profile download currently unavailable :(")
   }
 
-  const [connectionStatus, setConnectionStatus] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState("");
+  const [connectionDetails, setConnectionDetails] = useState();
+
+  useEffect(() => {
+    if (authState.connections) {
+      const connection = authState.connections.find(user => {
+        return (user.connectionId._id === userProfile.userId._id || user.userId === userProfile.userId._id);
+      });
+
+      if (connection) {
+        setConnectionDetails(connection);
+
+        if (connection.status === null) {
+          if (connection.connectionId._id === userProfile.userId._id) {
+            setConnectionStatus("Request Sent");
+
+          } else if (connection.userId === userProfile.userId._id) {
+            setConnectionStatus("Accept Request");
+            setConnectionDetails(prev => ({ ...prev, status: true }));
+          }
+        } else if (connection.userId === userProfile.userId._id ||
+          connection.connectionId._id === userProfile.userId._id && connection.status) {
+          setConnectionStatus("Remove Connection");
+
+        }
+      } else {
+        setConnectionStatus("Connect");
+      }
+    }
+  }, [authState.connections, userProfile]);
+
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
+
+  const manageConnection = async (userId) => {
+    try {
+      if (connectionStatus === "Connect") {
+        const request = await dispatch(sendConnectioReq({ userId: userId })).unwrap();
+        setConnectionStatus("Request Sent");
+        setSuccess("Request Sent...");
+        setConnectionDetails(request.request);
+
+      } else if (connectionStatus === "Request Sent" && connectionDetails) {
+        await dispatch(manageConnectionReq({
+          requestId: connectionDetails._id,
+          action: "delete"
+        })).unwrap();
+
+        setConnectionStatus("Connect");
+        setSuccess("Request Deleted...");
+
+      } else if (connectionStatus === "Accept Request" && connectionDetails) {
+        await dispatch(manageConnectionReq({
+          requestId: connectionDetails._id,
+          action: "accept"
+        })).unwrap();
+
+        setConnectionStatus("Remove Connection");
+        setSuccess("Request Accepted...");
+
+      } else if (connectionStatus === "Remove Connection" && connectionDetails) {
+        await dispatch(manageConnectionReq({
+          requestId: connectionDetails._id,
+          action: "delete"
+        })).unwrap();
+
+        setConnectionStatus("Connect");
+        setSuccess("Connection removed...");
+      }
+
+    } catch (error) {
+      setError(error.message);
+    }
+  }
 
   return (
     <UserLayout>
@@ -60,15 +142,9 @@ export default function User({ userProfile }) {
         Profile | Network
       </title>
 
-      {
-        (postState.isError && postState.message.message) &&
-        <TextDanger message={postState.message.message} />
-      }
+      {error && <TextDanger onClose={() => setError()} message={error} />}
 
-      {
-        (!postState.isError && postState.message.message) &&
-        <TextSuccess message={postState.message.message} />
-      }
+      {success && <TextSuccess onClose={() => setSuccess()} message={success} />}
 
       <div className={styles.body}>
         <div className={styles.userProfile}>
@@ -103,8 +179,8 @@ export default function User({ userProfile }) {
 
               {
                 (authState.user && (authState.user.username !== username)) &&
-                <div className="connectionStatus">
-                  <ActionBtn message={"Connect"} />
+                <div onClick={() => manageConnection(userProfile.userId._id)}>
+                  <ActionBtn message={connectionStatus} />
                 </div>
               }
             </div>

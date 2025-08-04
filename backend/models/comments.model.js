@@ -43,6 +43,10 @@ const commentSchema = new mongoose.Schema(
             type: Boolean,
             default: true
         },
+        edited: {
+            type: Boolean,
+            default: false
+        },
         blocked: {
             type: Boolean,
             default: false

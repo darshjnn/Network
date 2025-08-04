@@ -48,9 +48,13 @@ export const editPost = async (req, res) => {
         newPost.fileType = req.file.mimetype.split("/")[1];
     }
 
-    newPost.updatedAt = new Date();
-    Object.assign(post, newPost);
-    await post.save();
+    // Check if the post is actually edited
+    if (post.body !== newPost.body && post.media !== newPost.media) {
+        newPost.edited = true;
+        newPost.updatedAt = new Date();
+        Object.assign(post, newPost);
+        await post.save();
+    }
 
     return res.status(201).json({ message: "Post updated successfully..." });
 };

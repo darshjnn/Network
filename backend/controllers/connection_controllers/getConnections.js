@@ -1,7 +1,7 @@
 import { Connection } from "../../models/connections.model.js";
 import { User } from "../../models/user.model.js";
 
-// Get Connection lists
+// Fetch current user's full connection list
 
 export const getConnections = async (req, res) => {
     const { token } = req.body;
@@ -10,8 +10,8 @@ export const getConnections = async (req, res) => {
 
     const connections = await Connection.find({
         $or: [
-            { userId: user._id, status: true },
-            { connectionId: user._id, status: true }
+            { userId: user._id },
+            { connectionId: user._id }
         ]
     }).populate('connectionId', 'name username email profilePicture');
 

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import fs from "fs";
 
 import { Comment } from "./comments.model.js";
+import { type } from "os";
 
 const postSchema = new mongoose.Schema({
     userId: {
@@ -43,6 +44,10 @@ const postSchema = new mongoose.Schema({
         default: true
     },
     archived: {
+        type: Boolean,
+        default: false
+    },
+    edited: {
         type: Boolean,
         default: false
     },

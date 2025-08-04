@@ -36,9 +36,12 @@ export const editComment = async (req, res) => {
         return res.status(400).json({ message: "Not authorized to edit this Comment!!!" });
     }
 
-    newComment.updatedAt = new Date();
-    Object.assign(comment, newComment);
-    await comment.save();
+    if (comment.body !== newComment.body) {
+        newComment.edited = true;
+        newComment.updatedAt = new Date();
+        Object.assign(comment, newComment);
+        await comment.save();
+    }
 
     return res.status(201).json({ message: "Comment updated successfully..." });
 };

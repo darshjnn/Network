@@ -15,14 +15,19 @@ export const manageConnections = async (req, res) => {
         connectionUser.status = true;
         await connectionUser.save();
         return res.status(201).json({ message: "Request Accepted..." });
+
     } else if (!connectionUser.status && action === "reject") {
         await Connection.deleteOne({ _id: requestId });
         return res.status(201).json({ message: "Request Rejected..." });
-    } else if (connectionUser.status && action === "delete") {
+
+    } else if (action === "delete") {
         await Connection.deleteOne({ _id: requestId });
-        return res.status(201).json({ message: "Connection Removed..." });
-    }
-    else {
+        if (connectionUser.status) {
+            return res.status(201).json({ message: "Connection Removed..." });
+        } else {
+            return res.status(201).json({ message: "Connection Request Removed..." });
+        }
+    } else {
         return res.status(404).json({ message: "Invalid action type..." });
     }
 };

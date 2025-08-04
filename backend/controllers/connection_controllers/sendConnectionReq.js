@@ -31,7 +31,7 @@ export const sendConnectionReq = async (req, res) => {
 
     if (existingReq) {
         if (existingReq.status === null) {
-            return res.status(200).json({ message: "Request already sent..." });
+            return res.status(400).json({ message: "Request already sent..." });
         } else if (existingReq.status === true) {
             return res.status(200).json({ message: "User already in connection..." });
         }
@@ -45,7 +45,7 @@ export const sendConnectionReq = async (req, res) => {
     });
 
     if (receivedRequest) {
-        return res.status(200).json({ message: "User already waiting for response..." });
+        return res.status(409).json({ message: "User already waiting for response..." });
     }
 
     // Creating a new Connection request
@@ -56,5 +56,5 @@ export const sendConnectionReq = async (req, res) => {
 
     await newRequest.save();
 
-    return res.status(201).json({ message: "Request Sent..." });
+    return res.status(201).json({ message: "Request Sent...", request: newRequest });
 };

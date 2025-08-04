@@ -56,7 +56,7 @@ export default function Post({ userId, post }) {
     <>
       <div className={styles.postContainer}>
         {
-          (post.createdAt !== post.updatedAt) && <p className={styles.isEdited}>Edited</p>
+          (post.edited) && <p className={styles.isEdited}>Edited</p>
         }
 
         <div className={styles.postHeader}>

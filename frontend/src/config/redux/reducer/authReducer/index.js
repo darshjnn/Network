@@ -4,6 +4,9 @@ import { loginUser } from "../../action/authAction/loginUser";
 import { currentUser } from "../../action/authAction/currentUser";
 import { logout } from "../../action/authAction/logout";
 import { registerUser } from "../../action/authAction/registerUser";
+import { getConnections } from "../../action/authAction/getConnections";
+import { sendConnectioReq } from "../../action/authAction/sendConnectionReq";
+import { manageConnectionReq } from "../../action/authAction/manageConnectionReq";
 
 const initialState = {
     user: undefined,
@@ -91,6 +94,52 @@ const authSlice = createSlice({
                 return initialState;
             })
             .addCase(logout.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getConnections.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Trying to fetch Connections...";
+            })
+            .addCase(getConnections.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.connections = action.payload;
+            })
+            .addCase(getConnections.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.connections = false;
+                state.message = action.payload;
+            })
+            .addCase(sendConnectioReq.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Trying to send connection...";
+            })
+            .addCase(sendConnectioReq.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.message = action.payload;
+            })
+            .addCase(sendConnectioReq.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(manageConnectionReq.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Trying to update connection status...";
+            })
+            .addCase(manageConnectionReq.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.message = action.payload;
+            })
+            .addCase(manageConnectionReq.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

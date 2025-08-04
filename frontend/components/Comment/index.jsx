@@ -69,6 +69,9 @@ function CommentItem({ userId, postId, comment }) {
       </div>
 
       <div className={styles.commentMeta}>
+        {
+          (comment.edited) && <p className={styles.isEdited}>Edited</p>
+        }
         <span>{new Date(comment.createdAt).toLocaleString()}</span>
       </div>
 
@@ -119,9 +122,7 @@ export default function Comment({ userId, postId, comments }) {
 
   const handlePostComment = async (postId) => {
     await dispatch(postComment({ postId: postId, body: commentBody })).unwrap();
-    setTimeout(async () => {
-      await dispatch(getAllComments({ postId: postId })).unwrap();
-    }, 1000);
+    await dispatch(getAllComments({ postId: postId })).unwrap();
 
     setCommentBody("");
   }
