@@ -1,0 +1,11 @@
+.requestsContainer {
+    padding-top: 1rem;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.requestsContainer>h3 {
+    text-align: center;
+}

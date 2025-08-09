@@ -10,6 +10,7 @@
     flex-wrap: wrap;
     background: -webkit-linear-gradient(-45deg, #6EB8E1, #C8ABE6);
     justify-content: center;
+    margin-top: -1rem;
 }
 
 .mainContainer {

@@ -30,10 +30,10 @@ export const sendConnectionReq = async (req, res) => {
     });
 
     if (existingReq) {
-        if (existingReq.status === null) {
+        if (!existingReq.status) {
             return res.status(400).json({ message: "Request already sent..." });
         } else if (existingReq.status === true) {
-            return res.status(200).json({ message: "User already in connection..." });
+            return res.status(400).json({ message: "User already in connection..." });
         }
     }
 
@@ -41,7 +41,7 @@ export const sendConnectionReq = async (req, res) => {
     const receivedRequest = await Connection.findOne({
         userId: connectionUser._id,
         connectionId: currentUser._id,
-        status: null
+        status: false
     });
 
     if (receivedRequest) {
@@ -51,7 +51,8 @@ export const sendConnectionReq = async (req, res) => {
     // Creating a new Connection request
     const newRequest = new Connection({
         userId: currentUser._id,
-        connectionId: connectionUser._id
+        connectionId: connectionUser._id,
+        status: false
     });
 
     await newRequest.save();

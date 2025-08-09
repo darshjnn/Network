@@ -11,9 +11,10 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
-.userActivity {
+.routesWrapper {
     width: 80%;
     padding: 0.7rem;
     display: flex;
@@ -24,12 +25,12 @@
     gap: 0.7rem;
 }
 
-.userActivity:hover {
+.routesWrapper:hover {
     background: rgba(245, 245, 245, 0.26);
     transition: all 0.2s ease;
 }
 
-.userActivity>h3 {
+.routesWrapper>h3 {
     text-align: center;
     margin-bottom: 0.5rem;
 }

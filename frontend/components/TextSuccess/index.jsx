@@ -32,14 +32,11 @@ export default function TextSuccess({ message, onClose }) {
       {
         showText &&
         < div className={styles.textWrapper} >
-          <p className={styles.text}>{message}</p>
+          <span className={styles.text}>{message}</span>
 
-          {
-            <button type="button" className={styles.closeButton}
-              onClick={handleCloseText}>
-              <CloseSVG />
-            </button>
-          }
+          <button type="button" className={styles.closeButton} onClick={handleCloseText}>
+            <CloseSVG />
+          </button>
 
         </div >
       }

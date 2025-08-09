@@ -4,9 +4,11 @@
 }
 
 .navContainer {
-    background-color: rgba(0, 0, 0, 0.818);
+    background: rgba(0, 0, 0, 0.911);
     padding: 0.3rem 2.5rem 0rem 2.5rem;
     width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .noUser {
@@ -86,6 +88,10 @@
 }
 
 @media (max-width: 830px) {
+    .validUser {
+        padding-bottom: 0.3rem;
+    }
+
     .navbarMiddle>a:nth-child(5) {
         display: none;
     }

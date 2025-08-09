@@ -11,7 +11,7 @@ export const manageConnections = async (req, res) => {
         return res.status(404).json({ message: "Invalid Connection!!!" });
     }
 
-    if (connectionUser.status === null && action === "accept") {
+    if (!connectionUser.status && action === "accept") {
         connectionUser.status = true;
         await connectionUser.save();
         return res.status(201).json({ message: "Request Accepted..." });

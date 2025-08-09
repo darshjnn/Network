@@ -1,15 +1,14 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const sendConnectionReq = createAsyncThunk(
-    "user/send_request",
+export const getConnectionReq = createAsyncThunk(
+    "user/get_requests",
     async (user, thunkApi) => {
         try {
-            const response = await clientServer.post("/connections/send_request", {
-                token: localStorage.getItem("token"),
-                connectionId: user.userId
+            const response = await clientServer.post("/connections/get_requests", {
+                token: localStorage.getItem("token")
             });
-            
+
             return thunkApi.fulfillWithValue(response.data);
 
         } catch (err) {

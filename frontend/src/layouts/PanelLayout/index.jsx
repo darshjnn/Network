@@ -5,15 +5,14 @@ import styles from "./style.module.css";
 
 import ActionBtn from "../../../components/Buttons/ActionBtn";
 
-export default function FeedLayout({ children }) {
+export default function PanelLayout({ children }) {
 
   return (
     <div className={styles.feedMainContainer}>
 
       <div className={styles.userContainer}>
-        <span>User Profile</span>
 
-        <div className={styles.userActivity}>
+        <div className={styles.routesWrapper}>
           <h3>My Activity</h3>
 
           <Link href={"/my_posts"}>
@@ -26,6 +25,19 @@ export default function FeedLayout({ children }) {
 
           <Link href={"/my_posts"}>
             <ActionBtn message={"My Likes"} />
+          </Link>
+
+        </div>
+
+        <div className={styles.routesWrapper}>
+          <h3>Manage Connections</h3>
+
+          <Link href={"/connections"}>
+            <ActionBtn message={"My Connections"} />
+          </Link>
+
+          <Link href={"/requests"}>
+            <ActionBtn message={"Manage Requests"} />
           </Link>
 
         </div>

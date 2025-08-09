@@ -7,7 +7,7 @@ import fs from "fs";
 const userDataToPdf = async (profile) => {
     const doc = new PDFDocument();
 
-    const fileName = `${profile._id}.pdf`;
+    const fileName = `${profile.userId._id}.pdf`;
     const stream = fs.createWriteStream("uploads/resume/" + fileName);
 
     doc.pipe(stream);
@@ -37,9 +37,9 @@ const userDataToPdf = async (profile) => {
 
 // Download User Profile
 export const downloadProfile = async (req, res) => {
-    const user_id = req.query.id;
+    const { userId } = req.body;
 
-    const userProfile = await Profile.findOne({ userId: user_id })
+    const userProfile = await Profile.findOne({ userId: userId })
         .populate('userId', 'name email profilePicture');
 
     let profilePdf = await userDataToPdf(userProfile);

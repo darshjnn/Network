@@ -1,0 +1,33 @@
+.userDetailsBody {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.userAboutContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.userAboutContainer>div {
+    flex-basis: 50%;
+}
+
+.userBio,
+.userCurrentPost,
+.userEducation,
+.userExperience {
+    width: 100%;
+    background: rgba(245, 245, 245, 0.414);
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: 0.5rem;
+}
+
+.userDetailsBody div ul {
+    padding-left: 1.2rem;
+}

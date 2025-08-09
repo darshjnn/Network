@@ -1,0 +1,24 @@
+.connectionsBody {
+    flex-direction: column;
+    justify-self: center;
+    gap: 1.5rem;
+    width: 70%;
+    padding-top: 1rem;
+    display: flex;
+}
+
+.connectionReq {
+    align-self: center;
+}
+
+.connectionsContainer {
+    width: 80%;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.connectionsContainer>h3 {
+    text-align: center;
+}

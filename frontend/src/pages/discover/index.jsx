@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+import styles from "./style.module.css";
+
 import UserLayout from '@/layouts/UserLayout';
+import PanelLayout from '@/layouts/PanelLayout';
 
 export default function index() {
     const route = useRouter();
@@ -18,7 +21,11 @@ export default function index() {
                 Discover | Network
             </title>
 
-            <p>Discover</p>
+            <PanelLayout>
+
+                <p>Discover</p>
+                
+            </PanelLayout>
 
         </UserLayout>
     )

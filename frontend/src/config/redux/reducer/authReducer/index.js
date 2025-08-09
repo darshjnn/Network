@@ -4,9 +4,11 @@ import { loginUser } from "../../action/authAction/loginUser";
 import { currentUser } from "../../action/authAction/currentUser";
 import { logout } from "../../action/authAction/logout";
 import { registerUser } from "../../action/authAction/registerUser";
-import { getConnections } from "../../action/authAction/getConnections";
-import { sendConnectioReq } from "../../action/authAction/sendConnectionReq";
+import { connectionsList } from "../../action/authAction/connectionsList";
+import { sendConnectionReq } from "../../action/authAction/sendConnectionReq";
 import { manageConnectionReq } from "../../action/authAction/manageConnectionReq";
+import { getConnectionReq } from "../../action/authAction/getConnectionReq";
+import { acceptedConnections } from "../../action/authAction/acceptedConnections";
 
 const initialState = {
     user: undefined,
@@ -18,7 +20,7 @@ const initialState = {
     userFetched: false,
     profileFetched: false,
     connections: undefined,
-    connectioRequest: undefined
+    connectionRequest: undefined
 }
 
 const authSlice = createSlice({
@@ -98,33 +100,33 @@ const authSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
-            .addCase(getConnections.pending, (state) => {
+            .addCase(connectionsList.pending, (state) => {
                 state.isLoading = true;
                 state.message = "Trying to fetch Connections...";
             })
-            .addCase(getConnections.fulfilled, (state, action) => {
+            .addCase(connectionsList.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
                 state.connections = action.payload;
             })
-            .addCase(getConnections.rejected, (state, action) => {
+            .addCase(connectionsList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.connections = false;
                 state.message = action.payload;
             })
-            .addCase(sendConnectioReq.pending, (state) => {
+            .addCase(sendConnectionReq.pending, (state) => {
                 state.isLoading = true;
                 state.message = "Trying to send connection...";
             })
-            .addCase(sendConnectioReq.fulfilled, (state, action) => {
+            .addCase(sendConnectionReq.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
                 state.message = action.payload;
             })
-            .addCase(sendConnectioReq.rejected, (state, action) => {
+            .addCase(sendConnectionReq.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -140,6 +142,36 @@ const authSlice = createSlice({
                 state.message = action.payload;
             })
             .addCase(manageConnectionReq.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getConnectionReq.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Trying to fetch connection requests...";
+            })
+            .addCase(getConnectionReq.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.connectionRequest = action.payload;
+            })
+            .addCase(getConnectionReq.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(acceptedConnections.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Trying to fetch accepted connection...";
+            })
+            .addCase(acceptedConnections.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.connections = action.payload;
+            })
+            .addCase(acceptedConnections.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

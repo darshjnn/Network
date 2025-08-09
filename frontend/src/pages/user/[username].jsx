@@ -4,9 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsernamePosts } from '@/config/redux/action/postAction/getUsernamePosts';
-import { getConnections } from '@/config/redux/action/authAction/getConnections';
-import { sendConnectioReq } from '@/config/redux/action/authAction/sendConnectionReq';
-import { manageConnectionReq } from '@/config/redux/action/authAction/manageConnectionReq';
+import { connectionsList } from '@/config/redux/action/authAction/connectionsList';
 
 import styles from "./style.module.css";
 
@@ -15,6 +13,8 @@ import UserLayout from '@/layouts/UserLayout';
 import TextSuccess from '../../../components/TextSuccess';
 import TextDanger from '../../../components/TextDanger';
 import ActionBtn from '../../../components/Buttons/ActionBtn';
+import UserProfile from '../../../components/UserProfile';
+import UsernameConnectionStatus from '../../../components/UsernameConnectionStatus';
 import Post from '../../../components/Post';
 import PostActions from '../../../components/PostActions';
 
@@ -30,19 +30,21 @@ export default function User({ userProfile }) {
   const route = useRouter();
   const { username } = route.query;
 
+  const [posts, setPosts] = useState();
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
+
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       route.push("/");
     }
   }, []);
 
-  const [posts, setPosts] = useState();
-
   useEffect(() => {
     if (localStorage.getItem("token") && username) {
       try {
+        dispatch(connectionsList());
         dispatch(getUsernamePosts({ username: username }));
-        dispatch(getConnections());
       } catch (error) {
         console.error(error);
         setError(error);
@@ -57,81 +59,18 @@ export default function User({ userProfile }) {
   }, [postState.posts]);
 
   const handleDownloadProfile = async () => {
-    alert("Profile download currently unavailable :(");
-    console.log("Profile download currently unavailable :(")
-  }
-
-  const [connectionStatus, setConnectionStatus] = useState("");
-  const [connectionDetails, setConnectionDetails] = useState();
-
-  useEffect(() => {
-    if (authState.connections) {
-      const connection = authState.connections.find(user => {
-        return (user.connectionId._id === userProfile.userId._id || user.userId === userProfile.userId._id);
+    try {
+      const response = await clientServer.post("/profile/get_resume", {
+        token: localStorage.getItem("token"),
+        userId: userProfile.userId._id
       });
 
-      if (connection) {
-        setConnectionDetails(connection);
-
-        if (connection.status === null) {
-          if (connection.connectionId._id === userProfile.userId._id) {
-            setConnectionStatus("Request Sent");
-
-          } else if (connection.userId === userProfile.userId._id) {
-            setConnectionStatus("Accept Request");
-            setConnectionDetails(prev => ({ ...prev, status: true }));
-          }
-        } else if (connection.userId === userProfile.userId._id ||
-          connection.connectionId._id === userProfile.userId._id && connection.status) {
-          setConnectionStatus("Remove Connection");
-
-        }
-      } else {
-        setConnectionStatus("Connect");
-      }
-    }
-  }, [authState.connections, userProfile]);
-
-  const [error, setError] = useState();
-  const [success, setSuccess] = useState();
-
-  const manageConnection = async (userId) => {
-    try {
-      if (connectionStatus === "Connect") {
-        const request = await dispatch(sendConnectioReq({ userId: userId })).unwrap();
-        setConnectionStatus("Request Sent");
-        setSuccess("Request Sent...");
-        setConnectionDetails(request.request);
-
-      } else if (connectionStatus === "Request Sent" && connectionDetails) {
-        await dispatch(manageConnectionReq({
-          requestId: connectionDetails._id,
-          action: "delete"
-        })).unwrap();
-
-        setConnectionStatus("Connect");
-        setSuccess("Request Deleted...");
-
-      } else if (connectionStatus === "Accept Request" && connectionDetails) {
-        await dispatch(manageConnectionReq({
-          requestId: connectionDetails._id,
-          action: "accept"
-        })).unwrap();
-
-        setConnectionStatus("Remove Connection");
-        setSuccess("Request Accepted...");
-
-      } else if (connectionStatus === "Remove Connection" && connectionDetails) {
-        await dispatch(manageConnectionReq({
-          requestId: connectionDetails._id,
-          action: "delete"
-        })).unwrap();
-
-        setConnectionStatus("Connect");
-        setSuccess("Connection removed...");
+      if (response.data) {
+        window.open(`${BASE_URL}/uploads/resume/${userProfile.userId._id}.pdf`, "_blank");
       }
 
     } catch (error) {
+      console.error(error);
       setError(error.message);
     }
   }
@@ -178,74 +117,14 @@ export default function User({ userProfile }) {
               <span>@{userProfile.userId.username}</span>
 
               {
-                (authState.user && (authState.user.username !== username)) &&
-                <div onClick={() => manageConnection(userProfile.userId._id)}>
-                  <ActionBtn message={connectionStatus} />
-                </div>
-              }
-            </div>
-
-            <div className={styles.userDetailsBody}>
-              <div className={styles.userAboutContainer}>
-
-                {
-                  userProfile.bio.length > 0 &&
-                  <div className={styles.userBio}>
-                    <h3>About</h3>
-                    <ul><li><p>{userProfile.bio}</p></li></ul>
-                  </div>
-                }
-
-                {
-                  userProfile.currentPost.length > 0 &&
-                  <div className={styles.userCurrentPost}>
-                    <h3>Currently working as</h3>
-                    <ul><li><p>{userProfile.currentPost}</p></li></ul>
-                  </div>
-                }
-              </div>
-
-              {
-                userProfile.education.length > 0 &&
-                <div className={styles.userEducation}>
-                  <h3>Education</h3>
-                  <ul>
-                    {
-                      userProfile.education.map(e => {
-                        return (
-                          <li key={e._id}>
-                            <span><b>From:&nbsp;</b>{e.school}</span><br />
-                            <span><b>Degree:&nbsp;</b>{e.degree}</span><br />
-                            <span><b>Field:&nbsp;</b>{e.field}</span>
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
-                </div>
-              }
-
-              {
-                userProfile.experience.length > 0 &&
-                <div className={styles.userExperience}>
-                  <h3>Experience</h3>
-                  <ul>
-                    {
-                      userProfile.experience.map(e => {
-                        return (
-                          <li key={e._id}>
-                            <span><b>Company:&nbsp;</b>{e.company}</span><br />
-                            <span><b>Position:&nbsp;</b>{e.position}</span><br />
-                            <span><b>Duration:&nbsp;</b>{e.duration}</span>
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
-                </div>
+                (authState.user && authState.user._id !== userProfile.userId._id) &&
+                <UsernameConnectionStatus queryUserId={userProfile.userId._id} />
               }
 
             </div>
+
+            <UserProfile userProfile={userProfile} />
+
           </section>
 
           <div className={styles.userPostContainer}>

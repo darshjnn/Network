@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { now } from "mongoose";
 
 const connectionSchema = new mongoose.Schema({
     // Sent By
@@ -11,10 +11,14 @@ const connectionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    // Status: null => action await, Status: true => req accepted, Status: false: req rejected
+    // Status: Status: true => req accepted; Status: false: action await
     status: {
         type: Boolean,
         default: null
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

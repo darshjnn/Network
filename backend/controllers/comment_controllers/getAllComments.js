@@ -18,7 +18,7 @@ export const getAllComments = async (req, res) => {
 
     const comments = await Comment.find({ postId: postId, active: true, blocked: false })
         .populate('userId', 'username name profilePicture')
-        .sort({ createdAt: -1 }) // Sort newest comment first
+        .sort({ 'createdAt': -1 }) // Sort newest comment first
         .lean(); // use lean to return plain JS objects
 
 

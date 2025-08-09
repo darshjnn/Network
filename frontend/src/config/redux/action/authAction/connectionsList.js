@@ -1,8 +1,8 @@
 import { clientServer } from "@/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getConnections = createAsyncThunk(
-    "user/get_connections",
+export const connectionsList = createAsyncThunk(
+    "user/connections_list",
     async (user, thunkApi) => {
         try {
             const response = await clientServer.post("/connections/connections_list", {

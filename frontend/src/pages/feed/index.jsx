@@ -7,7 +7,7 @@ import { getAllPosts } from '@/config/redux/action/postAction/getAllPosts';
 import styles from "./style.module.css";
 
 import UserLayout from '@/layouts/UserLayout';
-import FeedLayout from '@/layouts/FeedLayout';
+import PanelLayout from '@/layouts/PanelLayout';
 
 import Post from '../../../components/Post';
 
@@ -35,7 +35,7 @@ export default function index() {
         Feed | Network
       </title>
 
-      <FeedLayout>
+      <PanelLayout>
         <div className={styles.feedBody}>
 
           {authState.user &&
@@ -49,7 +49,7 @@ export default function index() {
           }
 
         </div>
-      </FeedLayout>
+      </PanelLayout>
 
     </UserLayout>
   );

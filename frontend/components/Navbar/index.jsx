@@ -32,7 +32,7 @@ export default function Navbar() {
       localStorage.removeItem("token");
       router.push("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -101,7 +101,7 @@ export default function Navbar() {
             </Link>
 
             <div className={styles.logoutBtn} onClick={handleLogout}>
-              <ActionBtn message={`Log out`} />
+              <ActionBtn message={"Log out"} />
             </div>
 
           </div>

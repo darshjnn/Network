@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrUserPosts } from '@/config/redux/action/postAction/getCurrUserPosts';
 
 import UserLayout from '@/layouts/UserLayout';
-import FeedLayout from '@/layouts/FeedLayout';
+import PanelLayout from '@/layouts/PanelLayout';
 
 import Post from '../../../components/Post';
 import PostActions from '../../../components/PostActions';
@@ -46,7 +46,7 @@ export default function index() {
         My Posts | Network
       </title>
 
-      <FeedLayout >
+      <PanelLayout >
         {
           (postState.isError && postState.message.message) &&
           <TextDanger message={postState.message.message} />
@@ -81,8 +81,8 @@ export default function index() {
           }
 
         </div>
-      </FeedLayout>
+      </PanelLayout>
 
     </UserLayout>
-  )
+  );
 }
