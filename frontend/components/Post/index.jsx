@@ -113,7 +113,7 @@ export default function Post({ userId, post }) {
 
             <div className={styles.commentsWrapper} onClick={(e) => e.stopPropagation()}>
               <div className={styles.closeCommentBoxBtn} onClick={handleResetComment}>
-                <InteractBtn svg={<CloseSVG />} />
+                <InteractBtn message={"Close"} svg={<CloseSVG />} />
               </div>
 
               {

@@ -9,6 +9,7 @@ import { sendConnectionReq } from "../../action/authAction/sendConnectionReq";
 import { manageConnectionReq } from "../../action/authAction/manageConnectionReq";
 import { getConnectionReq } from "../../action/authAction/getConnectionReq";
 import { acceptedConnections } from "../../action/authAction/acceptedConnections";
+import { updateProfilePicture } from "../../action/authAction/updateProfilePicture";
 
 const initialState = {
     user: undefined,
@@ -172,6 +173,21 @@ const authSlice = createSlice({
                 state.connections = action.payload;
             })
             .addCase(acceptedConnections.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(updateProfilePicture.pending, (state) => {
+                state.isLoading = true;
+                state.message = "Trying to change Profile Picture...";
+            })
+            .addCase(updateProfilePicture.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.message = action.payload;
+            })
+            .addCase(updateProfilePicture.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

@@ -10,38 +10,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-}
-
-.userProfile {
-    flex: 0.3;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.userActions {
-    width: 80%;
-    padding: 0.7rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid rgba(0, 0, 0, 0.466);
-    border-radius: 0.6rem;
-    transition: all 0.2s ease;
-}
-
-.userActions:hover {
-    background: rgba(245, 245, 245, 0.26);
-    transition: all 0.2s ease;
-}
-
-.userActions>h3 {
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-.userContainer {
-    flex: 0.7;
+    gap: 1rem;
 }
 
 .backdropContainer {
@@ -68,7 +37,8 @@
     color: azure;
 }
 
-.userImgContainer {
+.userImgContainer,
+.userImgOverlay {
     padding: 0.4rem;
     background: black;
     position: absolute;
@@ -86,8 +56,103 @@
     object-fit: fill;
 }
 
+.userImgOverlay {
+    background: rgba(0, 0, 0, 0.524);
+    color: #F4F2EE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: column;
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.userImgOverlay:hover {
+    opacity: 1;
+    transition: all 0.2s ease;
+}
+
+.userProfile {
+    padding-top: 3rem;
+    width: 100%;
+    position: relative;
+    flex: 0.3;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.userActions {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid rgba(0, 0, 0, 0.500);
+    border-radius: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.userActions:hover {
+    background: rgba(245, 245, 245, 0.26);
+    transition: all 0.2s ease;
+}
+
+.userActions>h3 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.profileUpdateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profileUpdateForm>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileUpdateForm>div>input {
+    width: 80%;
+    font-size: 1rem;
+    margin: 0.5rem 2rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.profileUpdateForm>div>button {
+    width: 80%;
+    margin: 0.5rem 2rem;
+}
+
+.profileUpdateForm>div>label {
+    padding-left: 2rem;
+    align-self: flex-start;
+}
+
+.profileUpdateForm>div>input:focus {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.03);
+}
+
+.userContainer {
+    flex: 0.7;
+}
+
 .userDetails {
-    padding-top: 3.5rem;
+    padding-top: 3rem;
 }
 
 .userDetailsHeader {
@@ -113,8 +178,49 @@
     gap: 1.5rem;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 767px) {
+    .body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .backdropContainer>h2 {
+        font-size: 2.2rem;
+    }
+
+    .userImgContainer,
+    .userImgOverlay {
+        height: 100px;
+        width: 100px;
+    }
+
+    .userProfile {
+        flex: 1;
+        width: 60%;
+        align-items: center;
+    }
+
+    .userContainer {
+        flex: 1;
+    }
+
+    .userDetails {
+        padding-top: 0.8rem;
+    }
+
     .userPostContainer {
         width: 100%;
+    }
+}
+
+@media (max-width: 374px) {
+    .userProfile {
+        width: 80%;
+    }
+
+    .userDetailsHeader {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 0.5rem;
     }
 }

@@ -98,7 +98,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 1000;
 }
 
 .commentsWrapper {
@@ -116,6 +116,14 @@
     position: absolute;
     top: 0.5rem;
     right: 0.8rem;
+}
+
+.closeCommentBoxBtn>button {
+    gap: 0.3rem;
+}
+
+.closeCommentBoxBtn>button>span {
+    color: black;
 }
 
 @media (max-width: 950px) {

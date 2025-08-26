@@ -32,7 +32,7 @@ const upload = multer({
     fileFilter: (req, file, cb) => {
         checkFileType(file, cb);
     }
-}).single('profile_picture');
+}).single('profilePicture');
 
 const checkFileType = (file, cb) => {
     // Check mime

@@ -9,6 +9,7 @@
     width: 100%;
     position: fixed;
     top: 0;
+    z-index: 1000;
 }
 
 .noUser {
@@ -60,6 +61,7 @@
 }
 
 .userImgDiv {
+    padding: 0.1rem;
     position: relative;
     display: flex;
     place-items: center;

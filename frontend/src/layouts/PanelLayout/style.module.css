@@ -7,10 +7,16 @@
 }
 
 .feedMainContainer>div:nth-child(odd) {
+    position: relative;
     flex: 0.3;
-    align-items: center;
+}
+
+.userContainerWrapper {
+    position: fixed;
+    width: 30%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
 

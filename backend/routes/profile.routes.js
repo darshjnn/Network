@@ -11,14 +11,14 @@ import { usernameUserProfile } from "../controllers/profile_controllers/username
 
 const router = Router();
 
-// Update & Get current User Profile
+// Get current User Profile
 router.route('/my_profile')
     .post(
-        isLoggedIn, wrapAsync(currUserProfile)
-    )
-    .post(
-        isLoggedIn, wrapAsync(updateUserProfile)
-    );
+        isLoggedIn, wrapAsync(currUserProfile));
+
+// Update current User Profile
+router.route('/update_profile')
+    .post(isLoggedIn, wrapAsync(updateUserProfile));
 
 // Download User Profile
 router.route('/get_resume')
